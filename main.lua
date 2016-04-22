@@ -1,38 +1,35 @@
 io.stdout:setvbuf("no")
 
-local LoveGlass = require("loveglass")
+local PMug = require("p-mug")
 
 function love.load(args)
   love.graphics.setBackgroundColor(250,250,250)
-  LoveGlass.GlassUtil:LoadViewsDir("/views/")
-  LoveGlass.GlassUtil:setActiveView("Main")
-  LoveGlass.event("Main","Exit","Clicked",function() love.event.quit() end)
 end
 
 function love.update(dt)
-  LoveGlass.update(dt)
+  PMug.update(dt)
 end
 
 function love.draw()
-  LoveGlass.draw()
+  PMug.draw()
 end
 
 function love.mousepressed(x,y,button,istouch)
-  LoveGlass.mousepressed(x,y,button,istouch)
+  PMug.mousepressed(x,y,button,istouch)
 end
 
 function love.mousereleased(x,y,button,istouch)
-  LoveGlass.mousereleased(x,y,button,istouch)
+  PMug.mousereleased(x,y,button,istouch)
 end
 
 function love.keypressed(key,isrepeat)
-  LoveGlass.keypressed(key,isrepeat)
+  PMug.keypressed(key,isrepeat)
 end
 
 function love.keyreleased(key)
-  LoveGlass.keyreleased(key)
+  PMug.keyreleased(key)
 end
 
 function love.textinput(text)
-  LoveGlass.textinput(text)
+  PMug.textinput(text)
 end
