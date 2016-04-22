@@ -8,30 +8,33 @@ function VBase:initialize()
 end
 
 function VBase:draw()
-
+  for i=0;1;#self.ZLayer do
+    local l = self.ZLayer[i]
+    
+  end
 end
 
 function VBase:update(dt)
 
 end
 
-function VBase:keypressed()
+function VBase:keypressed(key,scancode,isrepeat)
 
 end
 
-function VBase:keyreleased()
+function VBase:keyreleased(key,scancode)
 
 end
 
-function VBase:textinput()
+function VBase:textinput(text)
 
 end
 
-function VBase:mousepressed()
+function VBase:mousepressed(x,y,button,istouch)
 
 end
 
-function VBase:mousereleased()
+function VBase:mousereleased(x,y,button,istouch)
 
 end
 
