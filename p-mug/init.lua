@@ -15,15 +15,19 @@ function PMug.mousepressed(x,y,button,istouch)
   
 end
 
+function PMug.mousemoved(x,y,dx,dy)
+
+end
+
 function PMug.mousereleased(x,y,button,istouch)
   
 end
 
-function PMug.keypressed(key,isrepeat)
+function PMug.keypressed(key,scancode,isrepeat)
   
 end
 
-function PMug.keyreleased(key)
+function PMug.keyreleased(key,scancode)
   
 end
 
