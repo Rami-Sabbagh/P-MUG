@@ -7,6 +7,12 @@ function VBase:initialize()
   self.ZLayer = {} --The z dimension of objects.
 end
 
+function VBase:registerObject(obj,z)
+  if not self.ZLayer[z or 0] then self.ZLayer[z or 0] = {} end
+  table.insert(self.ZLayer[z or 0],obj)
+  return self,#self.ZLayer[z or 0]
+end
+
 function VBase:draw()
   for i=0,#self.ZLayer do
     local l = self.ZLayer[i]
