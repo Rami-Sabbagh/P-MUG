@@ -3,14 +3,27 @@ local Class = require(Path..".third-party.middleclass",Path)
 
 local VBase = Class("view.base") VBase.static.PMUGV = true --P-Mug View Class
 
-function VBase:initialize()
+function VBase:initialize(name)
+  self.VName = name --The view name.
   self.ZLayer = {} --The z dimension of objects.
+end
+
+function VBase:getName()
+  return self.VName
 end
 
 function VBase:registerObject(obj,z)
   if not self.ZLayer[z or 0] then self.ZLayer[z or 0] = {} end
   table.insert(self.ZLayer[z or 0],obj)
   return self,#self.ZLayer[z or 0]
+end
+
+function VBase:enter(prevView,...)
+
+end
+
+function VBase:leave(nextView,...)
+
 end
 
 function VBase:draw()
