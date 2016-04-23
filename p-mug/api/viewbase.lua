@@ -26,7 +26,7 @@ function VBase:draw()
 end
 
 function VBase:update(dt)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -38,7 +38,7 @@ function VBase:update(dt)
 end
 
 function VBase:keypressed(key,scancode,isrepeat)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -50,7 +50,7 @@ function VBase:keypressed(key,scancode,isrepeat)
 end
 
 function VBase:keyreleased(key,scancode)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -62,7 +62,7 @@ function VBase:keyreleased(key,scancode)
 end
 
 function VBase:textinput(text)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -74,7 +74,7 @@ function VBase:textinput(text)
 end
 
 function VBase:mousepressed(x,y,button,istouch)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -86,7 +86,7 @@ function VBase:mousepressed(x,y,button,istouch)
 end
 
 function VBase:mousemoved(x,y,dx,dy)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -98,7 +98,7 @@ function VBase:mousemoved(x,y,dx,dy)
 end
 
 function VBase:mousereleased(x,y,button,istouch)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -110,7 +110,7 @@ function VBase:mousereleased(x,y,button,istouch)
 end
 
 function VBase:touchpressed(id,x,y,dx,dy,pressure)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -122,7 +122,7 @@ function VBase:touchpressed(id,x,y,dx,dy,pressure)
 end
 
 function VBase:touchmoved(id,x,y,dx,dy,pressure)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
@@ -134,7 +134,7 @@ function VBase:touchmoved(id,x,y,dx,dy,pressure)
 end
 
 function VBase:touchreleased(id,x,y,dx,dy,pressure)
-  for i=0,#self.ZLayer do
+  for i=#self.ZLayer,1,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=1,#l do
