@@ -4,6 +4,8 @@ local PMug = require("p-mug")
 
 function love.load(args)
   love.graphics.setBackgroundColor(250,250,250)
+  PMug.newView("test")
+  PMug.setActiveView("test")
 end
 
 function love.update(dt)
