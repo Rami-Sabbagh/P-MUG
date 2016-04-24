@@ -10,7 +10,7 @@ function PMug.newView(name,...)
 end
 
 function PMug.registerView(view)
-  if not view.static.PMUGV then return error("This isn't a P-Mug view class") end
+  if not view.PMUGV then return error("This isn't a P-Mug view class") end
   PMug.Views[view:getName()] = view
 end
 

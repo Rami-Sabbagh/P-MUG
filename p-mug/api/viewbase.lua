@@ -1,7 +1,7 @@
-local Path = ...
-local Class = require(Path..".third-party.middleclass",Path)
+local Path = string.sub(..., 1, string.len(...) - string.len(".api.viewbase"))
+local Class = require(Path..".third-party.middleclass")
 
-local VBase = Class("view.base") VBase.static.PMUGV = true --P-Mug View Class
+local VBase = Class("view.base") VBase.PMUGV = true --P-Mug View Class
 
 function VBase:initialize(name)
   self.VName = name --The view name.
