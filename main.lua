@@ -18,8 +18,24 @@ function love.mousepressed(x,y,button,istouch)
   PMug.mousepressed(x,y,button,istouch)
 end
 
+function love.mousemoved(x,y,dx,dy)
+  PMug.mousemoved(x,y,dx,dy)
+end
+
 function love.mousereleased(x,y,button,istouch)
   PMug.mousereleased(x,y,button,istouch)
+end
+
+function love.touchpressed(id,x,y,dx,dy,pressure)
+  PMug.touchpressed(id,x,y,dx,dy,pressure)
+end
+
+function love.touchmoved(id,x,y,dx,dy,pressure)
+  PMug.touchmoved(id,x,y,dx,dy,pressure)
+end
+
+function love.touchreleased(id,x,y,dx,dy,pressure)
+  PMug.touchreleased(id,x,y,dx,dy,pressure)
 end
 
 function love.keypressed(key,isrepeat)
