@@ -9,6 +9,18 @@ function PMug.newView(name,...)
   return newView
 end
 
+function PMug.newDrawer()
+
+end
+
+function PMug.newBhavior()
+
+end
+
+function PMug.newShape()
+
+end
+
 function PMug.registerView(view)
   if not view.PMUGV then return error("This isn't a P-Mug view class") end
   PMug.Views[view:getName()] = view
