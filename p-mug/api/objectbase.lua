@@ -1,13 +1,13 @@
 local Path = string.sub(..., 1, string.len(...) - string.len(".api.objectbase"))
 local Class = require(Path..".third-party.middleclass")
 
-local OBase = Class("view.base") OBase.PMUGO = true --P-Mug Object Class
+local OBase = Class("object.base") OBase.PMUGO = true --P-Mug Object Class
 
-function OBase:registerDrawer()
+function OBase:addDrawer()
 
 end
 
-function OBase:registerBhavior()
+function OBase:addBhavior()
 
 end
 
