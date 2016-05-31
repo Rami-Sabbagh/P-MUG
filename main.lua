@@ -3,7 +3,7 @@ io.stdout:setvbuf("no")
 local PMug = require("p-mug")
 
 function love.load(args)
-  love.graphics.setBackgroundColor(250,250,250)
+  love.graphics.setBackgroundColor(255,255,255)
   PMug.newView("test")
   PMug.setActiveView("test")
 end
