@@ -13,6 +13,7 @@ function VBase:getName()
 end
 
 function VBase:registerObject(obj,z)
+  if not obj.PMUGO then return error("This isn't a P-Mug object class") end
   if not self.ZLayer[z or 0] then self.ZLayer[z or 0] = {} end
   table.insert(self.ZLayer[z or 0],obj)
   return self,#self.ZLayer[z or 0]
