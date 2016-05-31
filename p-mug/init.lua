@@ -10,15 +10,15 @@ function PMug.newView(name,...)
 end
 
 function PMug.newDrawer()
-
+  
 end
 
 function PMug.newBhavior()
-
+  
 end
 
 function PMug.newShape()
-
+  
 end
 
 function PMug.registerView(view)
