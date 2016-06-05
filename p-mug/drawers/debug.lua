@@ -23,11 +23,4 @@ function DDebug:draw_text(shape)
   love.graphics.printf(shape:getDrawingArgs(Font))
 end
 
-function DDebug:draw_textrect(shape)
-  love.graphics.setColor(255,0,0,255)
-  love.graphics.setLineWidth(1)
-  love.graphics.setFont(Font)
-  love.graphics.printf(shape:getDrawingArgs(Font))
-end
-
 return DDebug
