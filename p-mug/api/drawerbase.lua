@@ -18,8 +18,7 @@ function DBase:linkShape(shp)
 end
 
 function DBase:draw()
-  for i=1,#self.LShapes do
-    local S = self.LShapes[i]
+  for k,S in ipairs(self.LShapes) do
     local T = S:getDType()
     if self["draw_"..T] then self["draw_"..T](self,S) end
   end

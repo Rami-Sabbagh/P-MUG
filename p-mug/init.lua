@@ -1,7 +1,44 @@
 --P-MUG By: RamiLego4Game--
-local PMug, Path = {Views={}}, ...
+local PMug, Path = {Views={},Shape={},Drawer={}}, ...
 
 local ViewBase = require(Path..".api.viewbase")
+
+function PMug.splitFilePath(path)
+  return path:match("(.-)([^\\/]-%.?([^%.\\/]*))$")
+end
+
+function PMug.indexShapes(path)
+  local files = love.filesystem.getDirectoryItems(path)
+  for k,filename in ipairs(files) do
+    if love.filesystem.isDirectory(path..filename) then
+      PMug.indexShapes(path..filename.."/")
+    else
+      local p, n, e = PMug.splitFilePath(path..filename)
+      n = n:sub(0,-5)
+      if e == "lua" then
+        PMug.Shape[n] = require(string.gsub(path..n,"/","%."))
+      end
+    end
+  end
+end
+
+function PMug.indexDrawers(path)
+  local files = love.filesystem.getDirectoryItems(path)
+  for k,filename in ipairs(files) do
+    if love.filesystem.isDirectory(path..filename) then
+      PMug.indexDrawers(path..filename.."/")
+    else
+      local p, n, e = PMug.splitFilePath(path..filename)
+      n = n:sub(0,-5)
+      if e == "lua" then
+        PMug.Drawer[n] = require(string.gsub(path..n,"/","%."))
+      end
+    end
+  end
+end
+
+PMug.indexShapes(Path:gsub("%.", "/").."/shapes/")
+PMug.indexDrawers(Path:gsub("%.", "/").."/drawers/")
 
 function PMug.newView(name,...)
   local newView = ViewBase(name or "none",...)

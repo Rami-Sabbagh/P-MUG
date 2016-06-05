@@ -25,18 +25,18 @@ function OBase:registerShape(shape)
 end
 
 function OBase:draw()
-  for i=1,#self.drawers do
-    if self.drawers[i].draw then self.drawers[i]:draw() end
+  for k, D in ipairs(self.drawers) do
+    if D.draw then D:draw() end
   end
 end
 
 function OBase:update(dt)
-  for i=1,#self.shapes do
-    if self.shapes[i].update then self.shapes[i]:update(dt) end
+  for k, S in ipairs(self.shapes) do
+    if S.update then S:update(dt) end
   end
   
-  for i=1,#self.drawers do
-    if self.drawers[i].update then self.drawers[i]:update(dt) end
+  for k,D in ipairs(self.drawers) do
+    if D.update then D:update(dt) end
   end
 end
 
