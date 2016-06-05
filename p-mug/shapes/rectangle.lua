@@ -20,6 +20,21 @@ function SRect:getDType()
   return "rectangle"
 end
 
+function SRect:getDrawingArgs()
+  return self.x, self.y, self.w, self.h
+end
+
+function SRect:setProperties(x,y,width,height)
+  self.x = x or self.x
+  self.y = y or self.y
+  self.w = width or self.w
+  self.h = height or self.h
+end
+
+function SRect:getProperties()
+  return self.x, self.y, self.w, self.h
+end
+
 function SRect:computeAABB()
   return self.x, self.y, self.x+self.w, self.y+self.h
 end

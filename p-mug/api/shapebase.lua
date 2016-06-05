@@ -4,11 +4,19 @@ local Class = require(Path..".third-party.middleclass")
 local SBase = Class("shape.base") SBase.PMUGS = true --P-Mug Shape Class
 
 function SBase:initialize()
-  self.drawingArgs = {} --The drawing arguments for drawer to use.
+  
+end
+
+function SBase:setProperties()
+  
+end
+
+function SBase:getProperties()
+  return nil
 end
 
 function SBase:getDrawingArgs()
-  return self.drawingArgs
+  return nil
 end
 
 --Return the shape type.

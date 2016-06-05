@@ -3,13 +3,12 @@ local Class = require(Path..".third-party.middleclass")
 
 local DBase = Class("drawer.base") DBase.PMUGD = true --P-Mug Drawer Class
 
-function DBase:initialize(name)
-  self.DName = name --The drawer name.
+function DBase:initialize()
   self.LShapes = {} --The linked shapes.
 end
 
 function DBase:getName()
-  return self.DName
+  return "base"
 end
 
 function DBase:linkShape(shp)
@@ -26,7 +25,7 @@ function DBase:draw()
   end
 end
 
-function DBase:update(Dt)
+function DBase:update(dt)
 
 end
 

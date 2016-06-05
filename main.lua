@@ -1,10 +1,20 @@
 io.stdout:setvbuf("no")
 
 local PMug = require("p-mug")
+local OBase = require("p-mug.api.objectbase")
+local SRect = require("p-mug.shapes.rectangle")
+local DDebug = require("p-mug.drawers.debug")
 
 function love.load(args)
   love.graphics.setBackgroundColor(255,255,255)
-  PMug.newView("test")
+  local TView = PMug.newView("test")
+  local TObject = OBase()
+  local TShape = SRect(10,10,200,25)
+  local TDrawer = DDebug()
+  TDrawer:linkShape(TShape)
+  TObject:registerShape(TShape)
+  TObject:addDrawer(TDrawer)
+  TView:registerObject(TObject)
   PMug.setActiveView("test")
 end
 

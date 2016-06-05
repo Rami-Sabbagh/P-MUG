@@ -4,4 +4,14 @@ local DBase = require(Path..".api.drawerbase")
 
 local DDebug = Class("drawer.debug",DBase)
 
+function DDebug:getName()
+  return "Debug"
+end
+
+function DDebug:draw_rectangle(shape)
+  love.graphics.setColor(255,0,0,255)
+  love.graphics.setLineWidth(1)
+  love.graphics.rectangle("line",shape:getDrawingArgs())
+end
+
 return DDebug
