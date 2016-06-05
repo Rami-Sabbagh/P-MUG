@@ -4,13 +4,12 @@ local SBase = require(Path..".api.shapebase")
 
 local SText = Class("shape.text",SBase)
 
-function SText:initialize(text, x, y, width, height, align)
+function SText:initialize(text, x, y, limit, align)
   SBase.initialize(self)
   self.t = text or "<text>"
   self.x = x or 0
   self.y = y or 0
-  self.w = width or 0
-  self.h = height or 0
+  self.l = limit
   self.a = align
 end
 
