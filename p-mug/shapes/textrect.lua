@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".shapes.textrect"))
+local Path = string.sub(..., 1, -string.len(".shapes.textrect"))
 local Class = require(Path..".third-party.middleclass")
 local SBase = require(Path..".api.shapebase")
 
@@ -45,11 +45,11 @@ function STRect:getProperties()
 end
 
 function STRect:computeAABB()
-  return self.x, self.y, self.x+self.l, self.y
+  return self.x, self.y, self.x+self.w, self.y+self.h
 end
 
 function STRect:testShape(px,py)
-  local x, y, xw, xh = self:computeAABB()
+  local x, y, xw, yh = self:computeAABB()
   if px > x and px < xw and py > y and py < yh then
     return true
   else
