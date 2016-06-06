@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".api.viewbase"))
+local Path = string.sub(..., 1, -string.len(".api.viewbase"))
 local Class = require(Path..".third-party.middleclass")
 
 local VBase = Class("view.base") VBase.PMUGV = true --P-Mug View Class
@@ -14,9 +14,9 @@ end
 
 function VBase:registerObject(obj,z)
   if not obj.PMUGO then return error("This isn't a P-Mug object class") end
-  if not self.ZLayer[z or 0] then self.ZLayer[z or 0] = {} end
-  table.insert(self.ZLayer[z or 0],obj)
-  return self,#self.ZLayer[z or 0]
+  if not self.ZLayer[z or 1] then self.ZLayer[z or 1] = {} end
+  table.insert(self.ZLayer[z or 1],obj)
+  return self,#self.ZLayer[z or 1]
 end
 
 function VBase:enter(prevView,...)
@@ -57,7 +57,7 @@ function VBase:keypressed(key,scancode,isrepeat)
     if l then
       for n=1,#l do
         local obj = l[n]
-        if obj and obj.keypressed then obj:keypresssd(key,scancode,isrepeat) end
+        if obj and obj.keypressed then obj:keypressed(key,scancode,isrepeat) end
       end
     end
   end
