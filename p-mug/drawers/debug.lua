@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".drawers.debug"))
+local Path = string.sub(..., 1, -string.len(".drawers.debug"))
 local Class = require(Path..".third-party.middleclass")
 local DBase = require(Path..".api.drawerbase")
 
@@ -11,7 +11,8 @@ function DDebug:getName()
 end
 
 function DDebug:draw_rectangle(shape)
-  love.graphics.setColor(255,0,0,255)
+  local isDown = shape:isDown()
+  love.graphics.setColor(isDown and {0,255,0,255} or {255,0,0,255})
   love.graphics.setLineWidth(1)
   love.graphics.rectangle("line",shape:getDrawingArgs())
 end
