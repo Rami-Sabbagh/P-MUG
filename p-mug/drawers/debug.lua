@@ -18,7 +18,8 @@ function DDebug:draw_rectangle(shape)
 end
 
 function DDebug:draw_text(shape)
-  love.graphics.setColor(255,0,0,255)
+  local isDown = shape:isDown()
+  love.graphics.setColor(isDown and {0,255,0,255} or {255,0,0,255})
   love.graphics.setLineWidth(1)
   love.graphics.setFont(Font)
   love.graphics.printf(shape:getDrawingArgs(Font))
