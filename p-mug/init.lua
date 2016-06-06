@@ -1,5 +1,5 @@
 --P-MUG By: RamiLego4Game--
-local PMug, Path = {Views={},Shape={},Drawer={}}, ...
+local PMug, Path = {activeView=false,Views={},Shape={},Drawer={}}, ...
 
 local ViewBase = require(Path..".api.viewbase")
 
@@ -74,70 +74,17 @@ function PMug.setActiveView(name,...)
   PMug.activeView = PMug.Views[name]
 end
 
-function PMug.draw(...)
-  if PMug.activeView and PMug.activeView.draw then
-    PMug.activeView:draw(...)
+local PMugMeta = {}
+
+PMugMeta.__index = function(t,k)
+  t[k] = function(...) 
+    if PMug.activeView and PMug.activeView[k] then
+      PMug.activeView[k](PMug.activeView,...)
+    end
   end
+  return t[k]
 end
 
-function PMug.update(...)
-  if PMug.activeView and PMug.activeView.update then
-    PMug.activeView:update(...)
-  end
-end
-
-function PMug.keypressed(...)
-  if PMug.activeView and PMug.activeView.keypressed then
-    PMug.activeView:keypressed(...)
-  end
-end
-
-function PMug.keyreleased(...)
-  if PMug.activeView and PMug.activeView.keyreleased then
-    PMug.activeView:keyreleased(...)
-  end
-end
-
-function PMug.textinput(...)
-  if PMug.activeView and PMug.activeView.textinput then
-    PMug.activeView:textinput(...)
-  end
-end
-
-function PMug.mousepressed(...)
-  if PMug.activeView and PMug.activeView.mousepressed then
-    PMug.activeView:mousepressed(...)
-  end
-end
-
-function PMug.mousemoved(...)
-  if PMug.activeView and PMug.activeView.mousemoved then
-    PMug.activeView:mousemoved(...)
-  end
-end
-
-function PMug.mousereleased(...)
-  if PMug.activeView and PMug.activeView.mousereleased then
-    PMug.activeView:mousereleased(...)
-  end
-end
-
-function PMug.touchpressed(...)
-  if PMug.activeView and PMug.activeView.touchpressed then
-    PMug.activeView:touchpressed(...)
-  end
-end
-
-function PMug.touchmoved(...)
-  if PMug.activeView and PMug.activeView.touchmoved then
-    PMug.activeView:touchmoved(...)
-  end
-end
-
-function PMug.touchreleased(...)
-  if PMug.activeView and PMug.activeView.touchreleased then
-    PMug.activeView:touchreleased(...)
-  end
-end
+setmetatable(PMug,PMugMeta)
 
 return PMug
