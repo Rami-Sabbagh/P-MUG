@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".themes.Flat"))
+local Path = string.sub(..., 1, -string.len(".themes.Flat"))
 local Dir = Path:gsub("(%a)%.(%a)", "%1/%2").."/"
 local Font = require(Path..".libraries.Font")
 local Flat = {}

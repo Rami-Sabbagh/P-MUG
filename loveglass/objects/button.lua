@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".objects.button"))
+local Path = string.sub(..., 1, -string.len(".objects.button"))
 local Class = require(Path .. ".third-party.middleclass")
 local OBase = require(Path .. ".objects.base")
 

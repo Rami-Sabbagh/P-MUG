@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".shapes.line"))
+local Path = string.sub(..., 1, -string.len(".shapes.line"))
 local Class = require(Path .. ".third-party.middleclass")
 
 local SBase = Class("shape.Base") SBase.static.LGUIS = true --LGUIE: LoveGlass User Interface Shape
@@ -10,7 +10,23 @@ end
 
 function SBase:setDrawingArgs(args)
   self.drawingArgs = args or {}
+  self.hovered = false
+  self.down = false
   return self
+end
+
+function SBase:isDown(isDown,dx,dy)
+  if type(isDown) == "boolean" then
+    self.down, self.dx, self.dy = isDown, dx, dy
+  end
+  return self.down, self.dx, self.dy
+end
+
+function SBase:isHovered(isHovered,hx,hy)
+  if type(isHovered) == "boolean" then
+    self.hovered, self.hx, self.hy = isHovered, hx, hy
+  end
+  return self.hovered, self.hx, self.hy
 end
 
 function SBase:getDrawingArgs()

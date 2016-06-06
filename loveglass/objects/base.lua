@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".objects.base"))
+local Path = string.sub(..., 1, -string.len(".objects.base"))
 local ThemeManager = require(Path..".libraries.ThemeManager")
 local GlassUtil = require(Path .. ".libraries.GlassUtil")
 local Class = require(Path .. ".third-party.middleclass")

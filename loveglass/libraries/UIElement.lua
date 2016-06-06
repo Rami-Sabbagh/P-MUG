@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".libraries.UIElement"))
+local Path = string.sub(..., 1, -string.len(".libraries.UIElement"))
 local GlassUtil = require(Path..".libraries.GlassUtil")
 local MathUtil = require(Path..".libraries.MathUtil")
 local Class = require(Path .. ".third-party.middleclass")

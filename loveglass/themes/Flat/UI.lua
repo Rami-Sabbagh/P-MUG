@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".themes.Flat.UI"))
+local Path = string.sub(..., 1, -string.len(".themes.Flat.UI"))
 local Color = require(Path..".themes.Flat.Color")
 local FlatUI = {}
 

@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".libraries.ThemeManager"))
+local Path = string.sub(..., 1, -string.len(".libraries.ThemeManager"))
 local Dir = Path:gsub("(%a)%.(%a)", "%1/%2").."/"
 local ThemeManager =  {Themes = {}}
 

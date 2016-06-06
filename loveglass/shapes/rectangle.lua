@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".shapes.rectangle"))
+local Path = string.sub(..., 1, -string.len(".shapes.rectangle"))
 local Class = require(Path .. ".third-party.middleclass")
 local SBase = require(Path .. ".shapes.base")
 
