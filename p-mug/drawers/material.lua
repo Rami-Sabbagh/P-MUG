@@ -27,7 +27,7 @@ function DMaterial:draw_rectangle(shape)
   if not self.sd[shape] then
     self.sd[shape] = {}
     self.sd[shape].rstarted = false
-    self.sd[shape].rbox = Material.ripple.box(x-e,y-e,w+e+e,h+e+e)
+    self.sd[shape].rbox = Material.ripple.box(x-e,y-e,w+e+e,h+e+e,0.5)
   end
   
   local isDown, dx, dy = shape:isDown()
