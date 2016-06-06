@@ -1,10 +1,11 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".api.objectbase"))
+local Path = string.sub(..., 1, -string.len(".api.objectbase"))
 local Class = require(Path..".third-party.middleclass")
 
 local OBase = Class("object.base") OBase.PMUGO = true --P-Mug Object Class
 
 function OBase:initialize()
   self.drawers = {}
+  self.handlers = {}
   self.shapes = {}
 end
 
@@ -14,8 +15,10 @@ function OBase:addDrawer(drawer)
   return self,#self.drawers
 end
 
-function OBase:addBhavior()
-  
+function OBase:addHandler(handler)
+  if not handler.PMUGH then return error("This isn't a P-Mug handler class") end
+  table.insert(self.handlers,handler)
+  return self,#self.handlers
 end
 
 function OBase:registerShape(shape)
@@ -31,12 +34,26 @@ function OBase:draw()
 end
 
 function OBase:update(dt)
+  for k, H in ipairs(self.handlers) do
+    if H.update then H:update(dt) end
+  end
+  
   for k, S in ipairs(self.shapes) do
     if S.update then S:update(dt) end
   end
   
   for k,D in ipairs(self.drawers) do
     if D.update then D:update(dt) end
+  end
+end
+
+local clone = {"mousepressed","mousemoved","mousereleased","keypressed","keyreleased","textinput"}
+
+for k, fname in ipairs(clone) do
+  OBase[fname] = function(self,...)
+    for k, H in ipairs(self.handlers) do
+      if H[fname] then H[fname](H,...) end
+    end
   end
 end
 
