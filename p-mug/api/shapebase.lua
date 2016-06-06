@@ -1,10 +1,25 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".api.shapebase"))
+local Path = string.sub(..., 1, -string.len(".api.shapebase"))
 local Class = require(Path..".third-party.middleclass")
 
 local SBase = Class("shape.base") SBase.PMUGS = true --P-Mug Shape Class
 
 function SBase:initialize()
-  
+  self.hovered = false
+  self.down = false
+end
+
+function SBase:isDown(isDown,dx,dy)
+  if type(isDown) == "boolean" then
+    self.down, self.dx, self.dy = isDown, dx, dy
+  end
+  return self.down, self.dx, self.dy
+end
+
+function SBase:isHovered(isHovered,hx,hy)
+  if type(isHovered) == "boolean" then
+    self.hovered, self.hx, self.hy = isHovered, hx, hy
+  end
+  return self.hovered, self.hx, self.hy
 end
 
 function SBase:setProperties()
