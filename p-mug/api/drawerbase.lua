@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, string.len(...) - string.len(".api.drawerbase"))
+local Path = string.sub(..., 1, -string.len(".api.drawerbase"))
 local Class = require(Path..".third-party.middleclass")
 
 local DBase = Class("drawer.base") DBase.PMUGD = true --P-Mug Drawer Class
