@@ -165,7 +165,7 @@ end
 ripple.box = function (x, y, w, h, time)
 	local self = ripple.custom(function() end, 0, time)
 
-	self.box = {x = box.x, y = box.y, w = box.w, h = box.h}
+	self.box = {x = x, y = y, w = w, h = h}
 
 	self.custom = function ()
 		lg.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h)
