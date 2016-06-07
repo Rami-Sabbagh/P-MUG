@@ -7,30 +7,53 @@ function OBase:initialize()
   self.drawers = {}
   self.handlers = {}
   self.shapes = {}
+  self.pos = {x=0,y=0,z=0}
+end
+
+function OBase:setView(view,z)
+  self.view = view
+  self.pos.z = z
+end
+
+function OBase:getView()
+  return self.view, self.pos.z
+end
+
+function OBase:setPosition(x,y,z)
+  self.pos = {x=x or self.pos.x, y=y or self.pos.y, z=z or self.pos.z}
+  if self.view and z then self.view:setZ(self,z) end
+  return self
+end
+
+function OBase:getPosition(x,y,z)
+  return self.pos.x, self.pos.y, self.pos.z
 end
 
 function OBase:addDrawer(drawer)
   if not drawer.PMUGD then return error("This isn't a P-Mug drawer class") end
   table.insert(self.drawers,drawer)
-  return self,#self.drawers
+  return self, #self.drawers
 end
 
 function OBase:addHandler(handler)
   if not handler.PMUGH then return error("This isn't a P-Mug handler class") end
   table.insert(self.handlers,handler)
-  return self,#self.handlers
+  return self, #self.handlers
 end
 
 function OBase:registerShape(shape)
   if not shape.PMUGS then return error("This isn't a P-Mug shape class") end
   table.insert(self.shapes,shape)
-  return self,#self.shapes
+  return self, #self.shapes
 end
 
 function OBase:draw()
+  love.graphics.push()
+  love.graphics.translate(self.pos.x,self.pos.y)
   for k, D in ipairs(self.drawers) do
     if D.draw then D:draw() end
   end
+  love.graphics.pop()
 end
 
 function OBase:update(dt)
@@ -47,7 +70,25 @@ function OBase:update(dt)
   end
 end
 
-local clone = {"mousepressed","mousemoved","mousereleased","keypressed","keyreleased","textinput"}
+local clone = {"keypressed","keyreleased","textinput"}
+
+function OBase:mousepressed(x,y,button,istouch)
+  for k, H in ipairs(self.handlers) do
+    if H.mousepressed then H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch) end
+  end
+end
+
+function OBase:mousemoved(x,y,dx,dy)
+  for k, H in ipairs(self.handlers) do
+    if H.mousemoved then H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy) end
+  end
+end
+
+function OBase:mousereleased(x,y,button,istouch)
+  for k, H in ipairs(self.handlers) do
+    if H.mousereleased then H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch) end
+  end
+end
 
 for k, fname in ipairs(clone) do
   OBase[fname] = function(self,...)
