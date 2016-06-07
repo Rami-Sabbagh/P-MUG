@@ -10,7 +10,7 @@ local Material = require("p-mug.third-party.material-love")
 function love.load(args)
   love.graphics.setBackgroundColor(Material.colors.background("light"))
   local TView = PMug.newView("test")
-  local TButton = PMug.Object.button(25,25,100,100,"Exit")
+  local TButton = PMug.Object.button(25,25,100,100,"Quit",function() love.event.quit() end)
   TView:registerObject(TButton)
   PMug.setActiveView("test")
 end
