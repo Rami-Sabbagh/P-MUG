@@ -6,6 +6,7 @@ local VBase = Class("view.base") VBase.PMUGV = true --P-Mug View Class
 function VBase:initialize(name)
   self.VName = name --The view name.
   self.ZLayer = {} --The z dimension of objects.
+  self.ZObjects = {}
 end
 
 function VBase:getName()
@@ -14,9 +15,20 @@ end
 
 function VBase:registerObject(obj,z)
   if not obj.PMUGO then return error("This isn't a P-Mug object class") end
-  if not self.ZLayer[z or 1] then self.ZLayer[z or 1] = {} end
-  table.insert(self.ZLayer[z or 1],obj)
-  return self,#self.ZLayer[z or 1]
+  if not self.ZLayer[z or 0] then self.ZLayer[z or 0] = {} end
+  self.ZLayer[z or 0][obj] = tostring(obj)
+  obj:setView(self,z or 0)
+  return self,#self.ZLayer[z or 0]
+end
+
+function VBase:setZ(obj,z)
+  if not obj.PMUGO then return error("This isn't a P-Mug object class") end
+  local v, oz = obj:getView()
+  if not v then return error("This object is not registered in any view !") end
+  if v ~= self then return error("This object is not registered in this view !") end
+  self.ZLayer[oz][obj] = nil
+  self.ZLayer[z or 0][obj] = tostring(obj)
+  obj:setView(self,z)
 end
 
 function VBase:enter(prevView,...)
@@ -31,8 +43,7 @@ function VBase:draw()
   for i=0,#self.ZLayer do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.draw then obj:draw() end
       end
     end
@@ -40,11 +51,10 @@ function VBase:draw()
 end
 
 function VBase:update(dt)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.update then obj:update(dt) end
       end
     end
@@ -52,11 +62,10 @@ function VBase:update(dt)
 end
 
 function VBase:keypressed(key,scancode,isrepeat)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.keypressed then obj:keypressed(key,scancode,isrepeat) end
       end
     end
@@ -64,11 +73,10 @@ function VBase:keypressed(key,scancode,isrepeat)
 end
 
 function VBase:keyreleased(key,scancode)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.keyreleased then obj:keyreleased(key,scancode) end
       end
     end
@@ -76,11 +84,10 @@ function VBase:keyreleased(key,scancode)
 end
 
 function VBase:textinput(text)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.textinput then obj:textinput(text) end
       end
     end
@@ -88,11 +95,10 @@ function VBase:textinput(text)
 end
 
 function VBase:mousepressed(x,y,button,istouch)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.mousepressed then obj:mousepressed(x,y,button,istouch) end
       end
     end
@@ -100,11 +106,10 @@ function VBase:mousepressed(x,y,button,istouch)
 end
 
 function VBase:mousemoved(x,y,dx,dy)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.mousemoved then obj:mousemoved(x,y,dx,dy) end
       end
     end
@@ -112,11 +117,10 @@ function VBase:mousemoved(x,y,dx,dy)
 end
 
 function VBase:mousereleased(x,y,button,istouch)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.mousereleased then obj:mousereleased(x,y,button,istouch) end
       end
     end
@@ -124,11 +128,10 @@ function VBase:mousereleased(x,y,button,istouch)
 end
 
 function VBase:touchpressed(id,x,y,dx,dy,pressure)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.touchpressed then obj:touchpressed(id,x,y,dx,dy,pressure) end
       end
     end
@@ -136,11 +139,10 @@ function VBase:touchpressed(id,x,y,dx,dy,pressure)
 end
 
 function VBase:touchmoved(id,x,y,dx,dy,pressure)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.touchmoved then obj:touchmoved(id,x,y,dx,dy,pressure) end
       end
     end
@@ -148,11 +150,10 @@ function VBase:touchmoved(id,x,y,dx,dy,pressure)
 end
 
 function VBase:touchreleased(id,x,y,dx,dy,pressure)
-  for i=#self.ZLayer,1,-1 do
+  for i=#self.ZLayer,0,-1 do
     local l = self.ZLayer[i]
     if l then
-      for n=1,#l do
-        local obj = l[n]
+      for obj,str in pairs(l) do
         if obj and obj.touchreleased then obj:touchreleased(id,x,y,dx,dy,pressure) end
       end
     end
