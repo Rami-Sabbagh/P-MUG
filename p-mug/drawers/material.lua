@@ -51,7 +51,7 @@ function DMaterial:draw_rectangle(shape)
   love.graphics.setColor(Material.colors.main("white"))
   love.graphics.setLineWidth(1)
   
-  Material.shadow.draw(x,y,w,h,false,isDown and 3 or 2)  
+  Material.shadow.draw(x,y,w,h,false,isDown and 2 or 1)  
   
   love.graphics.rectangle("fill",x,y,w,h)
   love.graphics.rectangle("line",x,y,w,h)
