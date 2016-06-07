@@ -11,11 +11,11 @@ function ABase:update(dt,obj,shapes)
   
 end
 
-function ABase:handlerHovering(x,y,obj,shapes)
+function ABase:handlerHovering(x,y,dx,dy,obj,shapes)
   
 end
 
-function ABase:handlerUnhovered(x,y,obj,shapes)
+function ABase:handlerUnhovered(x,y,dx,dy,obj,shapes)
   
 end
 
