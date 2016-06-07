@@ -31,7 +31,7 @@ function HBase:mousepressed(x,y,button,istouch,obj)
   for k,shape in ipairs(self.LShapes) do
     if shape:testShape(x,y) then
       for k, Act in ipairs(self.Actions) do
-        if Act and Act.handlerDown then Act:handlerDown(x,y,button,obj,self.LShapes) Act.hd.mp = true end
+        if Act and Act.handlerDown then Act:handlerDown(x,y,button,obj,shape,self.LShapes) Act.hd.mp = shape end
       end
       break
     end
@@ -40,12 +40,12 @@ end
 
 function HBase:mousemoved(x,y,dx,dy,obj)
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerDragged and Act.hd.mp then Act:handlerDragged(x,y,dx,dy,obj,self.LShapes) end
+    if Act and Act.handlerDragged and Act.hd.mp then Act:handlerDragged(x,y,dx,dy,obj,Act.hd.mp,self.LShapes) end
   end
   for k,shape in ipairs(self.LShapes) do
     if shape:testShape(x,y) then
       for k, Act in ipairs(self.Actions) do
-        if Act and Act.handlerHovering and not Act.hd.mp then Act:handlerHovering(x,y,dx,dy,obj,self.LShapes) Act.hd.h = true end
+        if Act and Act.handlerHovering and not Act.hd.mp then Act:handlerHovering(x,y,dx,dy,obj,shape,self.LShapes) Act.hd.h = {x=x,y=y} end
       end
       return
     end
@@ -60,16 +60,16 @@ function HBase:mousereleased(x,y,button,istouch,obj)
   for k,shape in ipairs(self.LShapes) do
     if shape:testShape(x,y) then
       for k, Act in ipairs(self.Actions) do
-        if Act and Act.handlerReleased and Act.hd.mp then Act:handlerReleased(x,y,button,obj,self.LShapes) Act.hd.mp = false end
+        if Act and Act.handlerReleased and Act.hd.mp then Act:handlerReleased(x,y,button,obj,Act.hd.mp,self.LShapes) Act.hd.mp = false end
       end
       return
     end
   end
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerCancelled and Act.hd.mp then Act:handlerCancelled(x,y,button,obj,self.LShapes) Act.hd.mp = false end
+    if Act and Act.handlerCancelled and Act.hd.mp then Act:handlerCancelled(x,y,button,obj,Act.hd.mp,self.LShapes) Act.hd.mp = false end
   end
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerDragged and Act.hd.h and not Act.hd.mp then Act:handlerUnhovered(x,y,dx,dy,obj,self.LShapes) Act.hd.h = false end
+    if Act and Act.handlerUnhovered and Act.hd.h and not Act.hd.mp then Act:handlerUnhovered(x,y,Act.hd.h.x-x,Act.hd.h.y-y,obj,self.LShapes) Act.hd.h = false end
   end
 end
 
