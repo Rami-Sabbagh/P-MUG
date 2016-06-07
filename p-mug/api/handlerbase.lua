@@ -55,7 +55,7 @@ function HBase:mousereleased(x,y,button,istouch,obj)
     end
   end
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerReleased and Act.hd.mp then Act:handlerCancelled(x,y,button,obj,self.LShapes) Act.hd.mp = false end
+    if Act and Act.handlerCancelled and Act.hd.mp then Act:handlerCancelled(x,y,button,obj,self.LShapes) Act.hd.mp = false end
   end
 end
 

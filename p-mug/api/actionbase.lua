@@ -31,7 +31,7 @@ function ABase:handlerReleased(x,y,pressure,obj,shapes)
   
 end
 
-function ABase:handlerCancelled(x,y,pressure,shapes)
+function ABase:handlerCancelled(x,y,pressure,obj,shapes)
   
 end
 

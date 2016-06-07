@@ -29,7 +29,7 @@ function AUS:handlerReleased(x,y,pressure,obj,shapes)
   end
 end
 
-function AUS:handlerCancelled(x,y,pressure,shapes)
+function AUS:handlerCancelled(x,y,pressure,obj,shapes)
   for k,shp in ipairs(shapes) do
     shp:isDown(false,x,y)
   end
