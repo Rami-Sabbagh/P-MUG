@@ -31,6 +31,7 @@ function DMaterial:draw_rectangle(shape)
   end
   
   local isDown, dx, dy = shape:isDown()
+  local isHovered = shape:isHovered()
   if isDown then x,y,w,h = x-e,y-e,w+e+e,h+e+e end
   if isDown then
     if not self.sd[shape].rstarted then
@@ -48,7 +49,12 @@ function DMaterial:draw_rectangle(shape)
     end
   end
   
-  love.graphics.setColor(Material.colors.main("white"))
+  if isHovered then
+    love.graphics.setColor(Material.colors("grey","100"))
+  else
+    love.graphics.setColor(Material.colors.main("white"))
+  end
+  
   love.graphics.setLineWidth(1)
   
   Material.shadow.draw(x,y,w,h,false,isDown and 2 or 1)  

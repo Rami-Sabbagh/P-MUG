@@ -38,9 +38,20 @@ function HBase:mousepressed(x,y,button,istouch,obj)
   end
 end
 
-function HBase:mousemove(x,y,dx,dy,obj)
+function HBase:mousemoved(x,y,dx,dy,obj)
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerDragged and Act.hd.mp then Act:handlerDragger(x,y,dx,dy,obj,self.LShapes) end
+    if Act and Act.handlerDragged and Act.hd.mp then Act:handlerDragged(x,y,dx,dy,obj,self.LShapes) end
+  end
+  for k,shape in ipairs(self.LShapes) do
+    if shape:testShape(x,y) then
+      for k, Act in ipairs(self.Actions) do
+        if Act and Act.handlerHovering and not Act.hd.mp then Act:handlerHovering(x,y,dx,dy,obj,self.LShapes) Act.hd.h = true end
+      end
+      return
+    end
+  end
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerDragged and Act.hd.h and not Act.hd.mp then Act:handlerUnhovered(x,y,dx,dy,obj,self.LShapes) Act.hd.h = false end
   end
 end
 
@@ -57,8 +68,9 @@ function HBase:mousereleased(x,y,button,istouch,obj)
   for k, Act in ipairs(self.Actions) do
     if Act and Act.handlerCancelled and Act.hd.mp then Act:handlerCancelled(x,y,button,obj,self.LShapes) Act.hd.mp = false end
   end
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerDragged and Act.hd.h and not Act.hd.mp then Act:handlerUnhovered(x,y,dx,dy,obj,self.LShapes) Act.hd.h = false end
+  end
 end
-
-
 
 return HBase
