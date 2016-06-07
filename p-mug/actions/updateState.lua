@@ -9,7 +9,7 @@ function AUS:initialize(skipDownState,skipHoverState)
   self.sds, self.shs = skipDownState, skipHoverState
 end
 
-function AUS:handlerHovering(x,y,dx,dy,obj,shapes)
+function AUS:handlerHovering(x,y,dx,dy,obj,shape,shapes)
   if self.shs then return end
   for k,shp in ipairs(shapes) do
     shp:isHovered(true,x,y)
@@ -23,21 +23,21 @@ function AUS:handlerUnhovered(x,y,dx,dy,obj,shapes)
   end
 end
 
-function AUS:handlerDown(x,y,pressure,obj,shapes)
+function AUS:handlerDown(x,y,pressure,obj,shape,shapes)
   if self.sds then return end
   for k,shp in ipairs(shapes) do
     shp:isDown(true,x,y)
   end
 end
 
-function AUS:handlerReleased(x,y,pressure,obj,shapes)
+function AUS:handlerReleased(x,y,pressure,obj,shape,shapes)
   if self.sds then return end
   for k,shp in ipairs(shapes) do
     shp:isDown(false,x,y)
   end
 end
 
-function AUS:handlerCancelled(x,y,pressure,obj,shapes)
+function AUS:handlerCancelled(x,y,pressure,obj,shape,shapes)
   if self.sds then return end
   for k,shp in ipairs(shapes) do
     shp:isDown(false,x,y)

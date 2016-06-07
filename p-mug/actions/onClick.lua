@@ -13,7 +13,7 @@ function AOC:setOnClick(oc)
   self.oc = oc or function() end
 end
 
-function AOC:handlerReleased(x,y,pressure,obj,shapes)
+function AOC:handlerReleased(x,y,pressure,obj,shape,shapes)
   self.oc(obj,shapes)
 end
 
