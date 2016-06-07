@@ -10,7 +10,7 @@ end
 function HBase:linkShape(shp)
   if not shp.PMUGS then return error("This isn't a P-Mug shape class") end
   table.insert(self.LShapes,shp)
-  return #self.LShapes
+  return self, #self.LShapes
 end
 
 function HBase:update(dt)
