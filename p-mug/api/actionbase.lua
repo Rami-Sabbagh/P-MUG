@@ -7,31 +7,31 @@ function ABase:initialize()
     self.hd = {} --Handlerdata, Table used by the handler to handle some stuff.
 end
 
-function ABase:update(dt)
+function ABase:update(dt,obj,shapes)
   
 end
 
-function ABase:handlerHovering(x,y)
+function ABase:handlerHovering(x,y,obj,shapes)
   
 end
 
-function ABase:handlerUnhovered(x,y)
+function ABase:handlerUnhovered(x,y,obj,shapes)
   
 end
 
-function ABase:handlerDown(x,y,pressure)
+function ABase:handlerDown(x,y,pressure,obj,shapes)
   
 end
 
-function ABase:handlerDragged(x,y,pressure)
+function ABase:handlerDragged(x,y,dx,dy,obj,shapes)
   
 end
 
-function ABase:handlerReleased(x,y,pressure)
+function ABase:handlerReleased(x,y,pressure,obj,shapes)
   
 end
 
-function ABase:handlerCancelled(x,y,pressure)
+function ABase:handlerCancelled(x,y,pressure,shapes)
   
 end
 
