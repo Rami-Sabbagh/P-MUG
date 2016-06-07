@@ -1,5 +1,5 @@
 --P-MUG By: RamiLego4Game--
-local PMug, Path = {activeView=false,Views={},Shape={},Drawer={},Object={}}, ...
+local PMug, Path = {activeView=false,Views={},Shape={},Drawer={},Object={},Action={}}, ...
 
 local ViewBase = require(Path..".api.viewbase")
 
@@ -52,9 +52,25 @@ function PMug.indexObjects(path)
   end
 end
 
+function PMug.indexActions(path)
+  local files = love.filesystem.getDirectoryItems(path)
+  for k,filename in ipairs(files) do
+    if love.filesystem.isDirectory(path..filename) then
+      PMug.indexShapes(path..filename.."/")
+    else
+      local p, n, e = PMug.splitFilePath(path..filename)
+      n = n:sub(0,-5)
+      if e == "lua" then
+        PMug.Action[n] = require(string.gsub(path..n,"/","%."))
+      end
+    end
+  end
+end
+
 PMug.indexShapes(Path:gsub("%.", "/").."/shapes/")
 PMug.indexDrawers(Path:gsub("%.", "/").."/drawers/")
 PMug.indexObjects(Path:gsub("%.", "/").."/objects/")
+PMug.indexActions(Path:gsub("%.", "/").."/actions/")
 
 function PMug.newView(name,...)
   local newView = ViewBase(name or "none",...)
