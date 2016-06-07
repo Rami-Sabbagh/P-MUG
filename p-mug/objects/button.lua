@@ -13,10 +13,11 @@ function OButton:initialize(x,y,w,h,t)
   self.SText = PMug.Shape.textrect(t,0,0,w,h,"center")
   self.Drawer = PMug.Drawer.material()
   self.Handler = HBase()
+  self.updateState = PMug.Action.updateState()
   self:addDrawer(self.Drawer):addHandler(self.Handler)
   self:registerShape(self.SBody):registerShape(self.SBody)
   self.Drawer:linkShape(self.SBody):linkShape(self.SText)
-  self.Handler:linkShape(self.SBody):linkShape(self.SText)
+  self.Handler:linkShape(self.SBody):linkShape(self.SText):addAction(self.updateState)
   
   self:setPosition(x,y)
 end
