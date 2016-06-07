@@ -51,22 +51,22 @@ function OBase:draw()
   love.graphics.push()
   love.graphics.translate(self.pos.x,self.pos.y)
   for k, D in ipairs(self.drawers) do
-    if D.draw then D:draw() end
+    if D.draw then D:draw(self) end
   end
   love.graphics.pop()
 end
 
 function OBase:update(dt)
   for k, H in ipairs(self.handlers) do
-    if H.update then H:update(dt) end
+    if H.update then H:update(dt,self) end
   end
   
   for k, S in ipairs(self.shapes) do
-    if S.update then S:update(dt) end
+    if S.update then S:update(dt,self) end
   end
   
-  for k,D in ipairs(self.drawers) do
-    if D.update then D:update(dt) end
+  for k, D in ipairs(self.drawers) do
+    if D.update then D:update(dt,self) end
   end
 end
 
@@ -74,19 +74,19 @@ local clone = {"keypressed","keyreleased","textinput"}
 
 function OBase:mousepressed(x,y,button,istouch)
   for k, H in ipairs(self.handlers) do
-    if H.mousepressed then H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch) end
+    if H.mousepressed then H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch,self) end
   end
 end
 
 function OBase:mousemoved(x,y,dx,dy)
   for k, H in ipairs(self.handlers) do
-    if H.mousemoved then H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy) end
+    if H.mousemoved then H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,self) end
   end
 end
 
 function OBase:mousereleased(x,y,button,istouch)
   for k, H in ipairs(self.handlers) do
-    if H.mousereleased then H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch) end
+    if H.mousereleased then H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch,self) end
   end
 end
 
