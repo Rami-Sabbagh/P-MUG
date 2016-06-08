@@ -10,7 +10,8 @@ function DDebug:getName()
   return "Debug"
 end
 
-function DDebug:draw_rectangle(shape)
+function DDebug:draw_rectangle(shape,obj)
+  local dtype, x, y, w, h = shape:getDType()
   local isHovered = shape:isHovered()
   local isDown = shape:isDown()
   if isDown then
@@ -21,10 +22,11 @@ function DDebug:draw_rectangle(shape)
     love.graphics.setColor(255,0,0,255)
   end
   love.graphics.setLineWidth(1)
-  love.graphics.rectangle("line",shape:getDrawingArgs())
+  love.graphics.rectangle("line", x, y, w, h)
 end
 
-function DDebug:draw_text(shape)
+function DDebug:draw_text(shape,obj)
+  local dtype, t, x, y, l, a = shape:getDType(Font)
   local isHovered = shape:isHovered()
   local isDown = shape:isDown()
   if isDown then
@@ -36,7 +38,7 @@ function DDebug:draw_text(shape)
   end
   love.graphics.setLineWidth(1)
   love.graphics.setFont(Font)
-  love.graphics.printf(shape:getDrawingArgs(Font))
+  love.graphics.printf(t, x, y, l, a)
 end
 
 return DDebug
