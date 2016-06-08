@@ -70,8 +70,6 @@ function OBase:update(dt)
   end
 end
 
-local clone = {"keypressed","keyreleased","textinput"}
-
 function OBase:mousepressed(x,y,button,istouch)
   for k, H in ipairs(self.handlers) do
     if H.mousepressed then H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch,self) end
@@ -90,11 +88,21 @@ function OBase:mousereleased(x,y,button,istouch)
   end
 end
 
-for k, fname in ipairs(clone) do
-  OBase[fname] = function(self,...)
-    for k, H in ipairs(self.handlers) do
-      if H[fname] then H[fname](H,...) end
-    end
+function OBase:touchpressed(id,x,y,dx,dy,pressure)
+  for k, H in ipairs(self.handlers) do
+    if H.touchpressed then H:touchpressed(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
+  end
+end
+
+function OBase:touchmoved(id,x,y,dx,dy,pressure)
+  for k, H in ipairs(self.handlers) do
+    if H.touchmoved then H:touchmoved(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
+  end
+end
+
+function OBase:touchreleased(id,x,y,dx,dy,pressure)
+  for k, H in ipairs(self.handlers) do
+    if H.touchreleased then H:touchreleased(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
   end
 end
 
