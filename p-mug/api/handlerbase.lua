@@ -62,7 +62,7 @@ function HBase:mousereleased(x,y,button,istouch,obj)
       for k, Act in ipairs(self.Actions) do
         if Act and Act.handlerReleased and Act.hd.mp then Act:handlerReleased(x,y,button,obj,Act.hd.mp,self.LShapes) Act.hd.mp = false end
       end
-      return
+      return true
     end
   end
   for k, Act in ipairs(self.Actions) do
@@ -70,6 +70,51 @@ function HBase:mousereleased(x,y,button,istouch,obj)
   end
   for k, Act in ipairs(self.Actions) do
     if Act and Act.handlerUnhovered and Act.hd.h and not Act.hd.mp then Act:handlerUnhovered(x,y,Act.hd.h.x-x,Act.hd.h.y-y,obj,self.LShapes) Act.hd.h = false end
+  end
+end
+
+function HBase:touchpressed(id,x,y,dx,dy,pressure,obj)
+  for k,shape in ipairs(self.LShapes) do
+    if shape:testShape(x,y) then
+      for k, Act in ipairs(self.Actions) do
+        if Act and Act.handlerDown and not Act.hd.tid then Act:handlerDown(x,y,pressure,obj,shape,self.LShapes) Act.hd.mp = shape Act.hd.tid = id end
+      end
+      break
+    end
+  end
+end
+
+function HBase:touchmoved(id,x,y,dx,dy,pressure,obj)
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerDragged and Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerDragged(x,y,dx,dy,obj,Act.hd.mp,self.LShapes) end
+  end
+  for k,shape in ipairs(self.LShapes) do
+    if shape:testShape(x,y) then
+      for k, Act in ipairs(self.Actions) do
+        if Act and Act.handlerHovering and not Act.hd.mp and not Act.hd.tid then Act:handlerHovering(x,y,dx,dy,obj,shape,self.LShapes) Act.hd.h = {x=x,y=y} end
+      end
+      return
+    end
+  end
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerDragged and Act.hd.h and not Act.hd.mp and not Act.hd.tid then Act:handlerUnhovered(x,y,dx,dy,obj,self.LShapes) Act.hd.h = false end
+  end
+end
+
+function HBase:touchreleased(id,x,y,dx,dy,pressure,obj)
+  for k,shape in ipairs(self.LShapes) do
+    if shape:testShape(x,y) then
+      for k, Act in ipairs(self.Actions) do
+        if Act and Act.handlerReleased and Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerReleased(x,y,pressure,obj,Act.hd.mp,self.LShapes) Act.hd.mp = false Act.hd.tid = nil end
+      end
+      return
+    end
+  end
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerCancelled and Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerCancelled(x,y,pressure,obj,Act.hd.mp,self.LShapes) Act.hd.mp = false Act.hd.tid = nil end
+  end
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.handlerUnhovered and Act.hd.h and not Act.hd.mp and not Act.hd.tid then Act:handlerUnhovered(x,y,Act.hd.h.x-x,Act.hd.h.y-y,obj,self.LShapes) Act.hd.h = false end
   end
 end
 
