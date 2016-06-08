@@ -17,11 +17,7 @@ function SRect:getType()
 end
 
 function SRect:getDType()
-  return "rectangle"
-end
-
-function SRect:getDrawingArgs()
-  return self.x, self.y, self.w, self.h
+  return "rectangle", self.x, self.y, self.w, self.h
 end
 
 function SRect:setProperties(x,y,width,height)

@@ -17,12 +17,8 @@ function SText:getType()
   return "text"
 end
 
-function SText:getDType()
-  return "text"
-end
-
-function SText:getDrawingArgs(font)
-  return self.t, self.x, self.y, self.l, self.a
+function SText:getDType(font)
+  return "text", self.t, self.x, self.y, self.l, self.a
 end
 
 function SText:setProperties(text, x, y, limit, align)

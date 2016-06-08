@@ -18,17 +18,14 @@ function STRect:getType()
   return "text"
 end
 
-function STRect:getDType()
-  return "text"
-end
-
-function STRect:getDrawingArgs(font)
+function STRect:getDType(font)
+  if not font then return "text" end
   local textheight = 0
   local width, wrappedtext = font:getWrap(self.t, self.w)
   for k, text in ipairs(wrappedtext) do
     textheight = textheight + font:getHeight(text)
   end
-  return self.t, self.x, self.y + (self.h - textheight)/2, self.w, self.a
+  return "text",self.t, self.x, self.y + (self.h - textheight)/2, self.w, self.a
 end
 
 function STRect:setProperties(text, x, y, width, height, align)

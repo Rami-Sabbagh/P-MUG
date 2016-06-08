@@ -6,6 +6,7 @@ local SBase = Class("shape.base") SBase.PMUGS = true --P-Mug Shape Class
 function SBase:initialize()
   self.hovered = false
   self.down = false
+  self.drawingArgs = {}
 end
 
 function SBase:isDown(isDown,dx,dy)
@@ -30,8 +31,13 @@ function SBase:getProperties()
   return nil
 end
 
+function SBase:setDrawingArgs(...)
+  self.drawingArgs = {...}
+  return self
+end
+
 function SBase:getDrawingArgs()
-  return nil
+  return unpack(self.drawingArgs)
 end
 
 --Return the shape type.
@@ -40,7 +46,7 @@ function SBase:getType()
 end
 
 --Return the drawtype of the shape. Refer to the drawer you are using.
-function SBase:getDType()
+function SBase:getDType(...)
   return "none"
 end
 
