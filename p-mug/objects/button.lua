@@ -2,15 +2,15 @@ local Path = string.sub(..., 1, -string.len(".objects.button"))
 local Class = require(Path..".third-party.middleclass")
 local OBase = require(Path..".api.objectbase")
 local HBase = require(Path..".api.handlerbase")
-
+local Material = require(Path..".third-party.material-love")
 
 local OButton = Class("object.button",OBase)
 
 function OButton:initialize(x,y,w,h,t,oc)
   OBase.initialize(self)
   local PMug = require(Path)
-  self.SBody = PMug.Shape.rectangle(0,0,w,h)
-  self.SText = PMug.Shape.textrect(t,0,0,w,h,"center")
+  self.SBody = PMug.Shape.rectangle(0,0,w,h):setDrawingArgs(false,false,{Material.colors("grey","200")})
+  self.SText = PMug.Shape.textrect(t,0,0,w,h,"center"):setDrawingArgs("button",{Material.colors.main("blue")})
   self.Drawer = PMug.Drawer.material()
   self.Handler = HBase()
   self.onClick = PMug.Action.onClick(oc)
