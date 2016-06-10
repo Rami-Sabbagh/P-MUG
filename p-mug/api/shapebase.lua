@@ -12,6 +12,7 @@ end
 function SBase:isDown(isDown,dx,dy)
   if type(isDown) == "boolean" then
     self.down, self.dx, self.dy = isDown, dx, dy
+    return self
   end
   return self.down, self.dx, self.dy
 end
@@ -19,6 +20,7 @@ end
 function SBase:isHovered(isHovered,hx,hy)
   if type(isHovered) == "boolean" then
     self.hovered, self.hx, self.hy = isHovered, hx, hy
+    return self
   end
   return self.hovered, self.hx, self.hy
 end

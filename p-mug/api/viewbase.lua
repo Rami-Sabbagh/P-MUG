@@ -103,66 +103,72 @@ function VBase:textinput(text)
 end
 
 function VBase:mousepressed(x,y,button,istouch)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.mousepressed then obj:mousepressed(x,y,button,istouch) end
+        if obj and obj.mousepressed then flag = obj:mousepressed(x,y,button,istouch,flag) or flag end
       end
     end
   end
 end
 
 function VBase:mousemoved(x,y,dx,dy)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.mousemoved then obj:mousemoved(x,y,dx,dy) end
+        if obj and obj.mousemoved then flag= obj:mousemoved(x,y,dx,dy,flag) or flag end
       end
     end
   end
 end
 
 function VBase:mousereleased(x,y,button,istouch)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.mousereleased then obj:mousereleased(x,y,button,istouch) end
+        if obj and obj.mousereleased then flag = obj:mousereleased(x,y,button,istouch,flag) or flag end
       end
     end
   end
 end
 
 function VBase:touchpressed(id,x,y,dx,dy,pressure)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.touchpressed then obj:touchpressed(id,x,y,dx,dy,pressure) end
+        if obj and obj.touchpressed then flag = obj:touchpressed(id,x,y,dx,dy,pressure,flag) or flag end
       end
     end
   end
 end
 
 function VBase:touchmoved(id,x,y,dx,dy,pressure)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.touchmoved then obj:touchmoved(id,x,y,dx,dy,pressure) end
+        if obj and obj.touchmoved then flag = obj:touchmoved(id,x,y,dx,dy,pressure,flag) or flag end
       end
     end
   end
 end
 
 function VBase:touchreleased(id,x,y,dx,dy,pressure)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for obj,str in pairs(l) do
-        if obj and obj.touchreleased then obj:touchreleased(id,x,y,dx,dy,pressure) end
+        if obj and obj.touchreleased then flag = obj:touchreleased(id,x,y,dx,dy,pressure,flag) or flag end
       end
     end
   end

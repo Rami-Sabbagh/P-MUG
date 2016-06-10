@@ -70,40 +70,52 @@ function OBase:update(dt)
   end
 end
 
-function OBase:mousepressed(x,y,button,istouch)
+function OBase:mousepressed(x,y,button,istouch,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.mousepressed then H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch,self) end
+    if H.mousepressed then flag = H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch,self,obstruct) or flag end
   end
+  return flag
 end
 
-function OBase:mousemoved(x,y,dx,dy)
+function OBase:mousemoved(x,y,dx,dy,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.mousemoved then H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,self) end
+    if H.mousemoved then flag = H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,self,obstruct) or flag end
   end
+  return flag
 end
 
-function OBase:mousereleased(x,y,button,istouch)
+function OBase:mousereleased(x,y,button,istouch,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.mousereleased then H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch,self) end
+    if H.mousereleased then flag = H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch,self,obstruct) or flag end
   end
+  return flag
 end
 
-function OBase:touchpressed(id,x,y,dx,dy,pressure)
+function OBase:touchpressed(id,x,y,dx,dy,pressure,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.touchpressed then H:touchpressed(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
+    if H.touchpressed then flag =  H:touchpressed(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct) or flag end
   end
+  return flag
 end
 
-function OBase:touchmoved(id,x,y,dx,dy,pressure)
+function OBase:touchmoved(id,x,y,dx,dy,pressure,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.touchmoved then H:touchmoved(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
+    if H.touchmoved then flag = H:touchmoved(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct) or flag end
   end
+  return flag
 end
 
-function OBase:touchreleased(id,x,y,dx,dy,pressure)
+function OBase:touchreleased(id,x,y,dx,dy,pressure,obstruct)
+  local flag
   for k, H in ipairs(self.handlers) do
-    if H.touchreleased then H:touchreleased(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self) end
+    if H.touchreleased then flag = H:touchreleased(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct) or flag end
   end
+  return flag
 end
 
 return OBase

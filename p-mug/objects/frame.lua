@@ -18,9 +18,10 @@ function OFrame:initialize(x,y,w,h,t)
   self.SBar = PMug.Shape.rectangle(0,0,w,Config.BarHeight):setDrawingArgs(true,true,false,{Material.colors.main("teal")},false)
   self.SIcon = PMug.Shape.icon("blinds",Config.BarHeight/2,Config.BarHeight/2,0,"black",false)
   self.SText = PMug.Shape.textrect(t,Config.BarHeight,Config.BarTextYOffset,w-Config.BarHeight*2,Config.BarHeight,"left"):setDrawingArgs("title",{Material.colors("teal","900")})
-  self.DMaterial = PMug.Drawer.material() self.BHandler = HBase():linkShape(self.SBar):addAction(self.DragAction)
+  self.DMaterial = PMug.Drawer.material() self.HBar = HBase():linkShape(self.SBar):addAction(self.DragAction)
   self.DMaterial:linkShape(self.SBody):linkShape(self.SBar):linkShape(self.SIcon):linkShape(self.SText)
-  self:addDrawer(self.DMaterial):addHandler(self.BHandler)
+  self.HBody = HBase():linkShape(self.SBody)
+  self:addDrawer(self.DMaterial):addHandler(self.HBar):addHandler(self.HBody)
   
   self:setPosition(x,y)
 end

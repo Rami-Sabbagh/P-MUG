@@ -11,27 +11,27 @@ function ABase:update(dt,obj,shapes)
   
 end
 
-function ABase:handlerHovering(x,y,dx,dy,obj,shape,shapes)
+function ABase:handlerHovering(x,y,dx,dy,obj,shape,shapes,obstruct)
   
 end
 
-function ABase:handlerUnhovered(x,y,dx,dy,obj,shapes)
+function ABase:handlerUnhovered(x,y,dx,dy,obj,shapes,obstruct)
   
 end
 
-function ABase:handlerDown(x,y,pressure,obj,shape,shapes)
+function ABase:handlerDown(x,y,pressure,obj,shape,shapes,obstruct)
   
 end
 
-function ABase:handlerDragged(x,y,dx,dy,obj,shape,shapes)
+function ABase:handlerDragged(x,y,dx,dy,obj,shape,shapes,obstruct)
   
 end
 
-function ABase:handlerReleased(x,y,pressure,obj,shape,shapes)
+function ABase:handlerReleased(x,y,pressure,obj,shape,shapes,obstruct)
   
 end
 
-function ABase:handlerCancelled(x,y,pressure,obj,shape,shapes)
+function ABase:handlerCancelled(x,y,pressure,obj,shape,shapes,obstruct)
   
 end
 

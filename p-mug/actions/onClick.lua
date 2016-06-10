@@ -13,7 +13,8 @@ function AOC:setOnClick(oc)
   self.oc = oc or function() end
 end
 
-function AOC:handlerReleased(x,y,pressure,obj,shape,shapes)
+function AOC:handlerReleased(x,y,pressure,obj,shape,shapes,obstruct)
+  if obstruct then return end
   self.oc(obj,shapes)
 end
 
