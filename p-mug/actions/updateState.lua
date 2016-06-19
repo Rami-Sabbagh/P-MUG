@@ -4,9 +4,9 @@ local ABase = require(Path..".api.actionbase")
 
 local AUS = Class("action.updateState",ABase)
 
-function AUS:initialize(skipDownState,skipHoverState)
+function AUS:initialize(skipDownState,skipHoverState,skipSetToTop)
   ABase.initialize(self)
-  self.sds, self.shs = skipDownState, skipHoverState
+  self.sds, self.shs, self.sstt = skipDownState, skipHoverState, skipSetToTop
 end
 
 function AUS:handlerHovering(x,y,dx,dy,obj,shape,shapes,obstruct)
@@ -27,6 +27,7 @@ end
 
 function AUS:handlerDown(x,y,pressure,obj,shape,shapes,obstruct)
   if obstruct then for k,shp in ipairs(shapes) do shp:isDown(false,x,y):isHovered(false,x,y) end return end
+  if not self.sstt then obj:setToTop() end
   if self.sds then return end
   for k,shp in ipairs(shapes) do
     shp:isDown(true,x,y)
