@@ -1,27 +1,49 @@
 local Path = string.sub(..., 1, -string.len(".api.objectbase"))
 local Class = require(Path..".third-party.middleclass")
 
+local CBase = require(Path..".api.containerbase")
+
 local OBase = Class("object.base") OBase.PMUGO = true --P-Mug Object Class
 
 function OBase:initialize()
   self.drawers = {}
   self.handlers = {}
   self.shapes = {}
+  self.containers = {}
   self.pos = {x=0,y=0,z=0}
 end
 
-function OBase:setView(view,z)
-  self.view = view
-  self.pos.z = z or self.pos.z
+function OBase:newContainer(ox,oy)
+  local Container = CBase(self,ox,oy)
+  local ContainerDrawer = Container:getDrawer()
+  self:registerContainer(Container)
+  return Container, ContainerDrawer, #self.containers
 end
 
-function OBase:getView()
-  return self.view, self.pos.z
+function OBase:registerContainer(container)
+  if not container.PMUGC then return error("This isn't a P-Mug container class") end
+  table.insert(self.containers,container)
+  return self, #self.containers
+end
+
+function OBase:setParentContainer(container,z,parentobj)
+  self.parentcontainer = container
+  self.pos.z = z or self.pos.z
+  self.parentobj = parentobj or self.parentobj
+  return self
+end
+
+function OBase:getParent()
+  return self.parentobj
+end
+
+function OBase:getParentContainer()
+  return self.parentcontainer, self.pos.z, self.parentobj
 end
 
 function OBase:setPosition(x,y,z)
   self.pos = {x=x or self.pos.x, y=y or self.pos.y, z=z or self.pos.z}
-  if self.view and z then self.view:setZ(self,z) end
+  if self.parentcontainer and z then self.parentcontainer:setZ(self,z) end
   return self
 end
 
@@ -30,8 +52,8 @@ function OBase:getPosition(x,y,z)
 end
 
 function OBase:setToTop()
-  if not self.view then return end
-  self.view:setToTop(self)
+  if not self.parentcontainer then return end
+  self.parentcontainer:setToTop(self)
 end
 
 function OBase:addDrawer(drawer)
