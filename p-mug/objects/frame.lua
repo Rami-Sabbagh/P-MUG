@@ -8,7 +8,6 @@ local OFrame = Class("object.frame",OBase)
 
 local Config = {}
 Config.BarHeight = 30
-Config.BarTextYOffset = 0
 
 function OFrame:initialize(x,y,w,h,t)
   OBase.initialize(self)
@@ -24,7 +23,7 @@ function OFrame:initialize(x,y,w,h,t)
   --Shapes--
   self.SBar = PMug.Shape.rectangle(0,0,w,Config.BarHeight):setDrawingArgs(true,true,false,{Material.colors.main("teal")},false)
   self.SIcon = PMug.Shape.icon("blinds",Config.BarHeight/2,Config.BarHeight/2,0,"black",false)
-  self.SText = PMug.Shape.textrect(t,Config.BarHeight,Config.BarTextYOffset,w-Config.BarHeight*2,Config.BarHeight,"left"):setDrawingArgs("title",{Material.colors("teal","900")})
+  self.SText = PMug.Shape.textrect(t,Config.BarHeight,0,w-Config.BarHeight*2,Config.BarHeight,"left"):setDrawingArgs("button",{Material.colors("teal","900")})
   self.SCloseBox = PMug.Shape.rectangle(w-Config.BarHeight,0,Config.BarHeight,Config.BarHeight):setDrawingArgs(true,true,{Material.colors("teal","300")},{Material.colors.main("teal")},{Material.colors("teal","400")})
   self.SCloseIcon = PMug.Shape.icon("close",w-Config.BarHeight/2,Config.BarHeight/2,0,"black",false)
   
