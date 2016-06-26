@@ -105,13 +105,13 @@ function HBase:touchreleased(id,x,y,dx,dy,pressure,obj,obstruct)
   for k,shape in ipairs(self.LShapes) do
     if shape:testShape(x,y) then
       for k, Act in ipairs(self.Actions) do
-        if Act and Act.handlerReleased and Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerReleased(x,y,pressure,obj,Act.hd.mp,self.LShapes,obstruct) Act.hd.shp = nil Act.hd.tid = nil end
+        if Act and Act.handlerReleased and not Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerReleased(x,y,pressure,obj,Act.hd.mp,self.LShapes,obstruct) Act.hd.shp = nil Act.hd.tid = nil end
       end
       return true
     end
   end
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.handlerCancelled and Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerCancelled(x,y,pressure,obj,Act.hd.mp,self.LShapes,obstruct) Act.hd.shp = nil Act.hd.tid = nil end
+    if Act and Act.handlerCancelled and not Act.hd.mp and Act.hd.tid and Act.hd.tid == id then Act:handlerCancelled(x,y,pressure,obj,Act.hd.mp,self.LShapes,obstruct) Act.hd.shp = nil Act.hd.tid = nil end
   end
   for k, Act in ipairs(self.Actions) do
     if Act and Act.handlerUnhovered and Act.hd.h and not Act.hd.mp and not Act.hd.tid then Act:handlerUnhovered(x,y,Act.hd.h.x-x,Act.hd.h.y-y,obj,self.LShapes,obstruct) Act.hd.h = false end
