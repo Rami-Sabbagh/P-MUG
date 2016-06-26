@@ -88,7 +88,7 @@ function DMaterial:draw_text(shape,obj)
   local dtype, t, x, y, l, a = shape:getDType(Material.roboto[fonttype or "button"])
   love.graphics.setColor(fontcolor or {Material.colors.mono("black","button")})
   love.graphics.setLineWidth(1)
-  love.graphics.setFont(Material.roboto.button)
+  love.graphics.setFont(Material.roboto[fonttype or "button"])
   love.graphics.printf(t, x, y, l, a)
 end
 
