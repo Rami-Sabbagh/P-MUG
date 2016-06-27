@@ -56,8 +56,8 @@ function love.mousepressed(x,y,button,istouch)
   PMug.mousepressed(x,y,button,istouch)
 end
 
-function love.mousemoved(x,y,dx,dy)
-  PMug.mousemoved(x,y,dx,dy)
+function love.mousemoved(x,y,dx,dy,istouch)
+  PMug.mousemoved(x,y,dx,dy,istouch)
 end
 
 function love.mousereleased(x,y,button,istouch)
