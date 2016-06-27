@@ -76,12 +76,12 @@ function love.touchreleased(id,x,y,dx,dy,pressure)
   PMug.touchreleased(id,x,y,dx,dy,pressure)
 end
 
-function love.keypressed(key,isrepeat)
-  PMug.keypressed(key,isrepeat)
+function love.keypressed(key,scancode,isrepeat)
+  PMug.keypressed(key,scancode,isrepeat)
 end
 
-function love.keyreleased(key)
-  PMug.keyreleased(key)
+function love.keyreleased(key,scancode)
+  PMug.keyreleased(key,scancode)
 end
 
 function love.textinput(text)
