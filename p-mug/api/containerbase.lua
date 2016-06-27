@@ -126,34 +126,37 @@ function CBase:update(dt)
   end
 end
 
-function CBase:keypressed(key,scancode,isrepeat)
+function CBase:keypressed(key,scancode,isrepeat,pflag)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=#l,0,-1 do local obj = l[n]
-        if obj and obj.keypressed then obj:keypressed(key,scancode,isrepeat) end
+        if obj and obj.keypressed then flag = obj:keypressed(key,scancode,isrepeat,pflag or flag) or flag end
       end
     end
   end
 end
 
-function CBase:keyreleased(key,scancode)
+function CBase:keyreleased(key,scancode,pflag)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=#l,0,-1 do local obj = l[n]
-        if obj and obj.keyreleased then obj:keyreleased(key,scancode) end
+        if obj and obj.keyreleased then flag = obj:keyreleased(key,scancode,pflag or flag) or flag end
       end
     end
   end
 end
 
-function CBase:textinput(text)
+function CBase:textinput(text,pflag)
+  local flag
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=#l,0,-1 do local obj = l[n]
-        if obj and obj.textinput then obj:textinput(text) end
+        if obj and obj.textinput then flag = obj:textinput(text,pflag or flag) or flag end
       end
     end
   end
@@ -179,13 +182,13 @@ function CBase:mousepressed(x,y,button,istouch,parent,obstruct)
   return flag
 end
 
-function CBase:mousemoved(x,y,dx,dy,parent,obstruct)
+function CBase:mousemoved(x,y,dx,dy,istouch,parent,obstruct)
   local flag  x, y = x-self.ox, y-self.oy
   for i=5,0,-1 do
     local l = self.ZLayer[i]
     if l then
       for n=#l,0,-1 do local obj = l[n]
-        if obj and obj.mousemoved then flag = obj:mousemoved(x,y,dx,dy,obstruct or flag) or flag end
+        if obj and obj.mousemoved then flag = obj:mousemoved(x,y,dx,dy,istouch,obstruct or flag) or flag end
       end
     end
   end

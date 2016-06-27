@@ -108,6 +108,33 @@ function OBase:update(dt)
   end
 end
 
+function OBase:keypressed(key,scancode,isrepeat,pflag)
+  if self.dead then return end
+  local flag
+  for k, H in ipairs(self.handlers) do
+    if H.keypressed then flag = H:keypressed(key,scancode,isrepeat,self,pflag or flag) or flag end
+  end
+  return flag
+end
+
+function OBase:keyreleased(key,scancode,pflag)
+  if self.dead then return end
+  local flag
+  for k, H in ipairs(self.handlers) do
+    if H.keyreleased then flag = H:keyreleased(key,scancode,self,pflag or flag) or flag end
+  end
+  return flag
+end
+
+function OBase:textinput(text,pflag)
+  if self.dead then return end
+  local flag
+  for k, H in ipairs(self.handlers) do
+    if H.textinput then flag = H:textinput(text,self,pflag or flag) or flag end
+  end
+  return flag
+end
+
 function OBase:mousepressed(x,y,button,istouch,obstruct)
   if self.dead then return end
   local flag
@@ -117,11 +144,11 @@ function OBase:mousepressed(x,y,button,istouch,obstruct)
   return flag
 end
 
-function OBase:mousemoved(x,y,dx,dy,obstruct)
+function OBase:mousemoved(x,y,dx,dy,istouch,obstruct)
   if self.dead then return end
   local flag
   for k, H in ipairs(self.handlers) do
-    if H.mousemoved then flag = H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,self,obstruct or flag) or flag end
+    if H.mousemoved then flag = H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,istouch,self,obstruct or flag) or flag end
   end
   return flag
 end
