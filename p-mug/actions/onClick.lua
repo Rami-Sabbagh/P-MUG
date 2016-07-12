@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, -string.len(".actions.onclick"))
+local Path = string.sub(..., 1, -string.len(".actions.onClick"))
 local Class = require(Path..".third-party.middleclass")
 local ABase = require(Path..".api.actionbase")
 
