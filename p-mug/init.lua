@@ -1,6 +1,8 @@
 --P-MUG By: RamiLego4Game--
 local PMug, Path = {activeView=false,Views={},Shape={},Drawer={},Object={},Action={}}, ...
 
+love.keyboard.setKeyRepeat(true)
+
 local ViewBase = require(Path..".api.viewbase")
 
 function PMug.splitFilePath(path)
