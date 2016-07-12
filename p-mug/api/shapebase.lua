@@ -6,6 +6,7 @@ local SBase = Class("shape.base") SBase.PMUGS = true --P-Mug Shape Class
 function SBase:initialize()
   self.hovered = false
   self.down = false
+  self.visible = true
   self.drawingArgs = {}
 end
 
@@ -23,6 +24,15 @@ function SBase:isHovered(isHovered,hx,hy)
     return self
   end
   return self.hovered, self.hx, self.hy
+end
+
+function SBase:setVisible(isvisible)
+  self.visible = isvisible
+  return self
+end
+
+function SBase:isVisible()
+  return self.visible
 end
 
 function SBase:setProperties()
@@ -54,7 +64,7 @@ end
 
 --Can be used for making affects.
 function SBase:update(dt)
-  
+  if not self.visible then return end
 end
 
 --Returns the points of the bounding box for the transformed shape.
