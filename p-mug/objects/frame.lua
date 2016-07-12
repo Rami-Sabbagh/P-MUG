@@ -12,15 +12,15 @@ Config.BarHeight = 30
 function OFrame:initialize(x,y,w,h,t)
   OBase.initialize(self)
   local PMug = require(Path)
-  self.SBody = PMug.Shape.rectangle(0,0,w,h)
-  self.SetToTopAction = PMug.Action.updateState(true,true,false)
   
   --Actions--
+  self.SetToTopAction = PMug.Action.updateState(true,true,false)
   self.UpdateStateAction = PMug.Action.updateState()
   self.DragAction = PMug.Action.dragObject()
   self.CloseAction = PMug.Action.onClick(function() self:destroy() end)
   
   --Shapes--
+  self.SBody = PMug.Shape.rectangle(0,0,w,h)
   self.SBar = PMug.Shape.rectangle(0,0,w,Config.BarHeight):setDrawingArgs(true,true,false,{Material.colors.main("teal")},false)
   self.SIcon = PMug.Shape.icon("blinds",Config.BarHeight/2,Config.BarHeight/2,0,"black",false)
   self.SText = PMug.Shape.textrect(t,Config.BarHeight,0,w-Config.BarHeight*2,Config.BarHeight,"left"):setDrawingArgs("button",{Material.colors("teal","900")})
