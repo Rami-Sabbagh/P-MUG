@@ -19,7 +19,7 @@ function ADO:handlerDragged(x,y,dx,dy,obj,shape,shapes,obstruct)
   obj:setPosition(oldx+dx, oldy+dy)
 end
 
-function ABase:handlerReleased(x,y,pressure,obj,shape,shapes,obstruct)
+function ADO:handlerReleased(x,y,pressure,obj,shape,shapes,obstruct)
   if self.obstructed[obj] then self.obstructed[obj] = nil end
 end
 
