@@ -15,7 +15,7 @@ function AOTI:setOnTextChanged(func)
 end
 
 function AOTI:keypressed(key,scancode,isrepeat,flag,obj)
-  if flag then return end
+  if flag or not obj:isSelected() then return end
   if key == "backspace" then
     self.text = self.text:sub(0,-2)
     self.otc(self.text,"")
