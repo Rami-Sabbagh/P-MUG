@@ -11,16 +11,24 @@ function ABase:update(dt,obj,shapes)
   --Normal love.update callback
 end
 
-function ABase:keypressed(key,scancode,isrepeat,obj,flag)
+function ABase:keypressed(key,scancode,isrepeat,flag,obj)
   --Called when a key get pressed.
 end
 
-function ABase:keyreleased(key,scancode,obj,flag)
+function ABase:keyreleased(key,scancode,flag,obj)
   --Called when a key get released.
 end
 
-function ABase:textinput(text,obj,flag)
+function ABase:textinput(text,flag,obj)
   --Called when the user inputs text.
+end
+
+function ABase:selected()
+  
+end
+
+function ABase:deselected()
+  
 end
 
 function ABase:handlerHovering(x,y,dx,dy,obj,shape,shapes,obstruct)
