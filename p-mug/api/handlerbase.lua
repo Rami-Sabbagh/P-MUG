@@ -26,26 +26,42 @@ function HBase:update(dt,obj)
   end
 end
 
-function HBase:keypressed(key,scancode,isrepeat,obj,pflag)
+function HBase:selected(obj)
   local flag
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.keypressed then flag = Act:keypressed(key,scancode,isrepeat,obj,pflag) or flag end
+    if Act and Act.selected then flag = Act:selected(obj) or flag end
   end
   return flag
 end
 
-function HBase:keyreleased(key,scancode,obj,pflag)
+function HBase:deselected(obj)
   local flag
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.keyreleased then flag = Act:keyreleased(key,scancode,obj,pflag) or flag end
+    if Act and Act.deselected then flag = Act:deselected(obj) or flag end
   end
   return flag
 end
 
-function HBase:textinput(text,obj,pflag)
+function HBase:keypressed(key,scancode,isrepeat,pflag,obj)
   local flag
   for k, Act in ipairs(self.Actions) do
-    if Act and Act.textinput then flag = Act:textinput(text,obj,pflag) or flag end
+    if Act and Act.keypressed then flag = Act:keypressed(key,scancode,isrepeat,pflag,obj) or flag end
+  end
+  return flag
+end
+
+function HBase:keyreleased(key,scancode,pflag,obj)
+  local flag
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.keyreleased then flag = Act:keyreleased(key,scancode,pflag,obj) or flag end
+  end
+  return flag
+end
+
+function HBase:textinput(text,pflag,obj)
+  local flag
+  for k, Act in ipairs(self.Actions) do
+    if Act and Act.textinput then flag = Act:textinput(text,pflag,obj) or flag end
   end
   return flag
 end
@@ -57,9 +73,11 @@ function HBase:mousepressed(x,y,button,istouch,obj,obstruct)
       for k, Act in ipairs(self.Actions) do
         if Act and Act.handlerDown then Act:handlerDown(x,y,button,obj,shape,self.LShapes,obstruct) Act.hd.mp = shape end
       end
+      obj:select()
       return true
     end
   end
+  obj:deselect()
 end
 
 function HBase:mousemoved(x,y,dx,dy,istouch,obj,obstruct)

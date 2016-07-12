@@ -51,6 +51,42 @@ function OBase:getPosition(x,y,z)
   return self.pos.x, self.pos.y, self.pos.z
 end
 
+function OBase:isSelected()
+  return self.selected or false
+end
+
+function OBase:toggleSelection()
+  if self:isSelected() then
+    self:deselect()
+  else
+    self:select()
+  end
+end
+
+function OBase:select()
+  if not self:isSelected() then
+    self.selected = true
+    local flag
+    for k, H in ipairs(self.handlers) do
+      if H.selected then flag = H:selected(self) or flag end
+    end
+    if not flag then self.selected = nil end
+    return flag
+  end
+end
+
+function OBase:deselect()
+  if self:isSelected() then
+    self.selected = nil
+    local flag
+    for k, H in ipairs(self.handlers) do
+      if H.deselected then flag = H:deselected(self) or flag end
+    end
+    if not flag then self.selected = true end
+    return flag
+  end
+end
+
 function OBase:setToTop()
   if not self.parentcontainer then return end
   self.parentcontainer:setToTop(self)
@@ -112,27 +148,27 @@ function OBase:keypressed(key,scancode,isrepeat,pflag)
   if self.dead then return end
   local flag
   for k, H in ipairs(self.handlers) do
-    if H.keypressed then flag = H:keypressed(key,scancode,isrepeat,self,pflag or flag) or flag end
+    if H.keypressed then flag = H:keypressed(key,scancode,isrepeat,pflag or flag,self) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:keyreleased(key,scancode,pflag)
   if self.dead then return end
   local flag
   for k, H in ipairs(self.handlers) do
-    if H.keyreleased then flag = H:keyreleased(key,scancode,self,pflag or flag) or flag end
+    if H.keyreleased then flag = H:keyreleased(key,scancode,pflag or flag,self) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:textinput(text,pflag)
   if self.dead then return end
   local flag
   for k, H in ipairs(self.handlers) do
-    if H.textinput then flag = H:textinput(text,self,pflag or flag) or flag end
+    if H.textinput then flag = H:textinput(text,pflag or flag,self) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:mousepressed(x,y,button,istouch,obstruct)
@@ -141,7 +177,7 @@ function OBase:mousepressed(x,y,button,istouch,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.mousepressed then flag = H:mousepressed(x-self.pos.x,y-self.pos.y,button,istouch,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:mousemoved(x,y,dx,dy,istouch,obstruct)
@@ -150,7 +186,7 @@ function OBase:mousemoved(x,y,dx,dy,istouch,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.mousemoved then flag = H:mousemoved(x-self.pos.x,y-self.pos.y,dx,dy,istouch,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:mousereleased(x,y,button,istouch,obstruct)
@@ -159,7 +195,7 @@ function OBase:mousereleased(x,y,button,istouch,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.mousereleased then flag = H:mousereleased(x-self.pos.x,y-self.pos.y,button,istouch,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:touchpressed(id,x,y,dx,dy,pressure,obstruct)
@@ -168,7 +204,7 @@ function OBase:touchpressed(id,x,y,dx,dy,pressure,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.touchpressed then flag =  H:touchpressed(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:touchmoved(id,x,y,dx,dy,pressure,obstruct)
@@ -177,7 +213,7 @@ function OBase:touchmoved(id,x,y,dx,dy,pressure,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.touchmoved then flag = H:touchmoved(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 function OBase:touchreleased(id,x,y,dx,dy,pressure,obstruct)
@@ -186,7 +222,7 @@ function OBase:touchreleased(id,x,y,dx,dy,pressure,obstruct)
   for k, H in ipairs(self.handlers) do
     if H.touchreleased then flag = H:touchreleased(id,x-self.pos.x,y-self.pos.y,dx,dy,pressure,self,obstruct or flag) or flag end
   end
-  return flag
+  return flag or self:isSelected()
 end
 
 return OBase
