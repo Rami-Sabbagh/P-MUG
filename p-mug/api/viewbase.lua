@@ -15,11 +15,11 @@ function VBase:getName()
 end
 
 function VBase:enter(prevView,...)
-
+  
 end
 
 function VBase:leave(nextView,...)
-
+  
 end
 
 return VBase
