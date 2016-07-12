@@ -379,8 +379,13 @@ function colors.main(name, variation)
 	if not _c[name][variation] then
 		error ("Argument #2 to colors, "..variation.." is not a valid color variation for the color: "..name, 2)
 	end
-
-	return unpack(_c[name][variation])
+	
+	if love.graphics.isGammaCorrect() then
+	  local r, g, b, a = unpack(_c[name][variation])
+	  return r, g, b, love.math.linearToGamma(a)
+  else
+	  return unpack(_c[name][variation])
+	end
 end
 
 function colors.mono(name, variation)
@@ -393,8 +398,13 @@ function colors.mono(name, variation)
 	if not _c[name][variation] then
 		error ("Argument #2 to monochrome, "..variation.." is not a valid color variation", 2)
 	end
-
-	return unpack(_c[name][variation])
+	
+	if love.graphics.isGammaCorrect() then
+	  local r, g, b, a = unpack(_c[name][variation])
+	  return r, g, b, love.math.linearToGamma(a)
+  else
+	  return unpack(_c[name][variation])
+	end
 end
 
 function colors.list()
