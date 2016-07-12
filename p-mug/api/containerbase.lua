@@ -136,6 +136,7 @@ function CBase:keypressed(key,scancode,isrepeat,pflag)
       end
     end
   end
+  return flag
 end
 
 function CBase:keyreleased(key,scancode,pflag)
@@ -148,6 +149,7 @@ function CBase:keyreleased(key,scancode,pflag)
       end
     end
   end
+  return flag
 end
 
 function CBase:textinput(text,pflag)
@@ -160,6 +162,7 @@ function CBase:textinput(text,pflag)
       end
     end
   end
+  return flag
 end
 
 function CBase:mousepressed(x,y,button,istouch,parent,obstruct)
