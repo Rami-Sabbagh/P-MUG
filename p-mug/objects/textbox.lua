@@ -18,7 +18,13 @@ function OTextBox:initialize(x,y,w,h,ht,t,otc)
   
   --Actions--
   self.UpdateStateAction = PMug.Action.updateState()
-  self.OnSelection = PMug.Action.onSelection(function(obj) return true end,function(obj) return true end)
+  self.OnSelection = PMug.Action.onSelection(function(obj)
+    if require(Path).isMobile then
+      love.keyboard.setTextInput(true)
+    end
+    return true
+  end
+  ,function(obj) return true end)
   self.OnTextInput = PMug.Action.onTextInput(function(text, newtext)
     self.SText:setProperties(text)
     if text == "" then

@@ -5,6 +5,10 @@ love.keyboard.setKeyRepeat(true)
 
 local ViewBase = require(Path..".api.viewbase")
 
+if love.system.getOS() == "Android" or love.system.getOS() == "iOS" then
+  PMug.isMobile = true
+end
+
 function PMug.splitFilePath(path)
   return path:match("(.-)([^\\/]-%.?([^%.\\/]*))$")
 end

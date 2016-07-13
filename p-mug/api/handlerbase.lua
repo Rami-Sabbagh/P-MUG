@@ -122,9 +122,11 @@ function HBase:touchpressed(id,x,y,dx,dy,pressure,obj,obstruct)
       for k, Act in ipairs(self.Actions) do
         if Act and Act.handlerDown and not Act.hd.tid and not Act.hd.mp then Act:handlerDown(x,y,pressure,obj,shape,self.LShapes,obstruct) Act.hd.tid = id Act.hd.shp = shape end
       end
+      obj:select()
       return true
     end
   end
+  obj:deselect()
 end
 
 function HBase:touchmoved(id,x,y,dx,dy,pressure,obj,obstruct)
