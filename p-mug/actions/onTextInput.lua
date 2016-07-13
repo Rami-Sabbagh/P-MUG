@@ -1,6 +1,7 @@
 local Path = string.sub(..., 1, -string.len(".actions.onTextInput"))
 local Class = require(Path..".third-party.middleclass")
 local ABase = require(Path..".api.actionbase")
+local utf8 = require("utf8")
 
 local AOTI = Class("action.onTextInput",ABase)
 
@@ -17,14 +18,11 @@ end
 function AOTI:keypressed(key,scancode,isrepeat,flag,obj)
   if flag or not obj:isSelected() then return end
   if key == "backspace" then
-    self.text = self.text:sub(0,-2)
+    local byteoffset = utf8.offset(self.text, -1)
+    if byteoffset then self.text = string.sub(self.text, 1, byteoffset - 1) end
     self.otc(self.text,"")
     return true
   end
-end
-
-function AOTI:keyreleased(key,scancode,flag,obj)
-  
 end
 
 function AOTI:textinput(text,flag,obj)
