@@ -49,10 +49,6 @@ function OTextBox:initialize(x,y,w,h,ht,t,otc)
   --Registering--
   self:addHandler(self.HBody)
   self:addDrawer(self.Drawer)
-  --[[self.SText = PMug.Shape.textrect(t,0,0,w,h,"center"):setDrawingArgs("display4",{Material.colors.main("blue")})
-  self.Drawer = PMug.Drawer.material():linkShape(self.SText)
-  self:addDrawer(self.Drawer)]]
-  
   
   self:setPosition(x,y)
 end
