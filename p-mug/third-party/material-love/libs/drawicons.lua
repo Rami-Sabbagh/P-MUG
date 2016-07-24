@@ -1,7 +1,7 @@
 local draw = {}
 
 return function (a,icons,color)
-	local ps = love.window.getPixelScale()
+	local ps = love.window.getPixelScale() ps = 1 --FIXME Disabling it until I code the smart resizing system
 	local lg = love.graphics
 
 	draw.font = lg.newFont(a.."/icons.ttf",24 * ps)

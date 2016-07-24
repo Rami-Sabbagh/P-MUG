@@ -5,6 +5,7 @@ local ps = love.window.getPixelScale()
 local OS = love.system.getOS()
 
 local n = OS == "Android" and OS == "iOS" and 0 or 1
+ps, n = 1,0 --FIXME Disabling it until I code the smart resizing system
 
 local lineheight = {
 	display2	= 48/45,
