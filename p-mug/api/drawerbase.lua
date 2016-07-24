@@ -8,7 +8,7 @@ function DBase:initialize()
 end
 
 function DBase:getName()
-  return "base"
+  return "Base"
 end
 
 function DBase:linkShape(shp)

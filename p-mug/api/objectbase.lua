@@ -33,6 +33,10 @@ function OBase:setParentContainer(container,z,parentobj)
   return self
 end
 
+function OBase:getType()
+  return "Base" --The type of the object (button, frame, slider, etc..) Must start with a capital letter !
+end
+
 function OBase:getParent()
   return self.parentobj
 end
