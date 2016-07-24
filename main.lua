@@ -13,43 +13,26 @@ function love.load(args)
   --if args[2] and args[2] == "-e" then loadstring(args[3])() end
   love.graphics.setBackgroundColor(Material.colors.background("light"))
   local TView = PMug.newView("test")
-  local TBExit = PMug.Object.button(10,10,100,35,"Quit",function() love.event.quit() end)
-  local TButton = PMug.Object.button(10,55,100,35,"Counter",function()
-    local TFrame = PMug.Object.frame(100,100,200,200,"Counter")
-    local TText = PMug.Object.text("0",0,0,200,125)
+  local TBExit = PMug.Object.Button(10,10,100,35,"Material","Quit",function() love.event.quit() end)
+  local TButton = PMug.Object.Button(10,55,100,35,"Material","Counter",function()
+    local TFrame = PMug.Object.Frame(100,100,200,200,"Material","Counter")
+    local TText = PMug.Object.Text("0",0,0,200,125,"Material")
     local Counter = 0
-    local TTButton = PMug.Object.button(90,125,100,35,"Count",function(obj,shapes) Counter = Counter+1 TText:setText(tostring(Counter))  end)
+    local TTButton = PMug.Object.Button(90,125,100,35,"Material","Count",function(obj,shapes) Counter = Counter+1 TText:setText(tostring(Counter))  end)
     TFrame:registerObject(TText, 0)
     TFrame:registerObject(TTButton,0)
     TView:registerObject(TFrame,4)
   end)
-  local TTBButton = PMug.Object.button(10,100,100,35,"TextBox",function()
-    local TFrame = PMug.Object.frame(100,100,600,200,"TextBox Demo")
-    local TText = PMug.Object.text("Text",0,0,580,125)
-    local TTBox = PMug.Object.textbox(10,125,580,35,"Text","",function(newtext,obj) TText:setText(newtext) end)
+  local TTBButton = PMug.Object.Button(10,100,100,35,"Material","TextBox",function()
+    local TFrame = PMug.Object.Frame(100,100,600,200,"Material","TextBox Demo")
+    local TText = PMug.Object.Text("Text",0,0,580,125,"Material")
+    local TTBox = PMug.Object.TextBox(10,125,580,35,"Material","Text","",function(newtext,obj) TText:setText(newtext) end)
     TFrame:registerObject(TText, 0)
     TFrame:registerObject(TTBox, 0)
     TView:registerObject(TFrame,4)
   end)
   TView:registerObject(TBExit,0):registerObject(TButton,0):registerObject(TTBButton,0)
   PMug.setActiveView("test")
-  generateColorPallete()
-end
-
-function toColor(num)
-  if num < 100 then return " "..tostring(num) elseif num < 10 then return "  "..tostring(num) else return tostring(num) end
-end
-
-function generateColorPallete()
-  local data = "GIMP Palette\nName: Material Auto\nColumns: 21\n#\n"
-  local colors = {"red","pink","purple","deep-purple","indigo","blue","light-blue","cyan","teal","green","light-green","lime","yellow","amber","orange","deep-orange","brown","grey","blue-grey"}
-  local maincolors = {"50","100","200","300","400","500","600","700","800","900","a100","a200","a400","a700"}
-  local bwcolors = {"full","divider","disabled","inactive-icon","hint-text","secondary-text","icon","text","display","headline","title","subhead","body","caption","menu","button"}
-  for k,cl in ipairs(colors) do
-    local r, g, b = Material.colors.main(cl)
-    r, g, b = toColor(r), toColor(g), toColor(b)
-    data = data..r.." "..g.." "..b.."    "..cl.." main"
-  end
 end
 
 function love.update(dt)
