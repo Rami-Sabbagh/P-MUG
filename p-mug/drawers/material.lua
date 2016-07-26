@@ -8,6 +8,7 @@ local DMaterial = Class("drawer.material",DBase)
 
 local Config = {}
 Config.rectangleExpand = 1 --How much to expand the rectangle when it's down ?
+Config.circleExpand = 1 --How much to expand the circle when it's down ?
 
 --[[
 Drawing Args:
@@ -37,6 +38,16 @@ end
 function DMaterial:update(dt)
   for shp, v in pairs(self.sd) do
     if v.rbox then v.rbox:update(dt) end
+  end
+end
+
+function DMaterial:draw_circle(shape,obj)
+  local dtype, x, y, r = shape:getDType()
+  local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
+  if not self.sd[shape] then
+    self.sd[shape] = {}
+    self.sd[shape].rstarted = false
+    self.sd[shape].rbox = Material.ripple.circle(x-Config.circleExpand,y-Config.circleExpand,r+Config.circleExpand*2,0.5)
   end
 end
 
