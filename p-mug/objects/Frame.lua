@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, -string.len(".objects.frame"))
+local Path = string.sub(..., 1, -string.len(".objects.Frame"))
 local Class = require(Path..".third-party.middleclass")
 local OBase = require(Path..".api.objectbase")
 

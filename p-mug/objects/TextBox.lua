@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, -string.len(".objects.textbox"))
+local Path = string.sub(..., 1, -string.len(".objects.TextBox"))
 local Class = require(Path..".third-party.middleclass")
 local OBase = require(Path..".api.objectbase")
 local HBase = require(Path..".api.handlerbase")

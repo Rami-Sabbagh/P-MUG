@@ -2,7 +2,7 @@ local Path = string.sub(..., 1, -string.len(".actions.dragObject"))
 local Class = require(Path..".third-party.middleclass")
 local ABase = require(Path..".api.actionbase")
 
-local ADO = Class("action.onClick",ABase)
+local ADO = Class("action.dragObject",ABase)
 
 function ADO:initialize()
   ABase.initialize(self)

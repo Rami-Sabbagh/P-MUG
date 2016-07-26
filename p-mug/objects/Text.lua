@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, -string.len(".objects.text"))
+local Path = string.sub(..., 1, -string.len(".objects.Text"))
 local Class = require(Path..".third-party.middleclass")
 local OBase = require(Path..".api.objectbase")
 
