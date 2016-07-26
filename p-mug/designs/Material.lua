@@ -86,4 +86,8 @@ function MTDS:buildFrame(obj,x,y,w,h,t)
   obj:addDrawer(obj.DMaterial):addDrawer(obj.FrameContainerDrawer):addHandler(obj.HClose):addHandler(obj.FrameContainer):addHandler(obj.HBar):addHandler(obj.HBody)
 end
 
+function MTDS:buildSlider(obj)
+  
+end
+
 return MTDS
