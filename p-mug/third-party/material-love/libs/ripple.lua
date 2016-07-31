@@ -99,7 +99,7 @@ ripple.draw = function (self,...)
 lg.setStencilTest("greater",0)
 
 	local _r,_g,_b,_a = lg.getColor()
-	
+
 	if self.active then
 		local r, g, b, a
 
@@ -144,7 +144,7 @@ ripple.custom = function (custom, fr, time)
 	local self = {}
 
 	self.ftime = time or 1
-	
+
 	self.custom = custom
 
 	self.fr = fr
@@ -169,7 +169,6 @@ ripple.box = function (x, y, w, h, time)
 
 	self.custom = function ()
 		lg.rectangle("fill", self.box.x, self.box.y, self.box.w, self.box.h)
-		lg.rectangle("line", self.box.x, self.box.y, self.box.w, self.box.h)
 	end
 
 	self.fr = (self.box.w * self.box.w + self.box.h * self.box.h) ^ 0.5
@@ -185,7 +184,6 @@ ripple.circle = function (x, y, ra, time)
 
 	self.custom = function ()
 		lg.circle("fill", self.circle.x, self.circle.y, self.circle.r)
-		lg.circle("line", self.circle.x, self.circle.y, self.circle.r)
 	end
 
 	self.fr = ra * 2
