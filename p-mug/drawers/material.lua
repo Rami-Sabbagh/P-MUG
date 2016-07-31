@@ -19,7 +19,7 @@ Drawing Args:
       RColor: table: {red,green,blue,alpha} The color of the ripple.
       NColor: table: {red,green,blue,alpha} The color of the rectangle when not hovered.
       HColor: table: {red,green,blue,alpha} The color of the rectangle when hovered.
-   
+
   text shapes:
     FontType, FontColor
       FontType: string: The type of the material robot font to use.
@@ -35,63 +35,100 @@ function DMaterial:getName()
   return "Material"
 end
 
-function DMaterial:update(dt)
-  for shp, v in pairs(self.sd) do
-    if v.rbox then v.rbox:update(dt) end
-  end
-end
-
 function DMaterial:draw_circle(shape,obj)
   local dtype, x, y, r = shape:getDType()
   local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
-  if not self.sd[shape] then
-    self.sd[shape] = {}
-    self.sd[shape].rstarted = false
-    self.sd[shape].rbox = Material.ripple.circle(x-Config.circleExpand,y-Config.circleExpand,r+Config.circleExpand*2,0.5)
-  end
-end
 
-function DMaterial:draw_rectangle(shape,obj)
-  local dtype, x, y, w, h = shape:getDType()
-  local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
-  if not self.sd[shape] then
-    self.sd[shape] = {}
-    self.sd[shape].rstarted = false
-    self.sd[shape].rbox = Material.ripple.box(x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2,0.5)
+  if not shape.ripple then --Creating the ripple
+    shape.rippleStarted = false
+    shape.ripple = Material.ripple.circle(x,y,r+Config.circleExpand,0.5)
+    shape:addUpdate(function(dt,shp,obj) shp.ripple:update(dt) end) --Adding a hook to update the ripple.
   end
-  
+
   local isDown, dx, dy = shape:isDown()
   local isHovered = shape:isHovered()
-  if isDown and not DExpand then x,y,w,h = x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2 end
+
+  if isDown and not DExpand then r = r+Config.circleExpand end --Expand Effect
+
   if isDown then
-    if not self.sd[shape].rstarted then
-      local r = self.sd[shape].rbox r.box.x, r.box.y, r.box.w, r.box.h = x,y,w,h r:start(dx,dy, unpack(RColor or {Material.colors.main("blue")})) self.sd[shape].rstarted = true
+    if not shape.rippleStarted then
+      shape.ripple.circle.x, shape.ripple.circle.y, shape.ripple.circle.r = x,y,r
+      shape.ripple:start(dx,dy, unpack(RColor or {Material.colors.main("blue")}))
+      shape.rippleStarted = true
     end
   else
-    if self.sd[shape].rstarted then
-      local r = self.sd[shape].rbox r.box.x, r.box.y, r.box.w, r.box.h = x,y,w,h r:fade() self.sd[shape].rstarted = false
+    if shape.rippleStarted then
+      shape.ripple.circle.x, shape.ripple.circle.y, shape.ripple.circle.r = x,y,r
+      shape.ripple:fade()
+      shape.rippleStarted = false
     end
   end
-  
+
   if isHovered then
     love.graphics.setColor(HColor or {Material.colors("grey","100")})
   else
     love.graphics.setColor(NColor or {Material.colors.main("white")})
   end
+
+  local _, _, z = obj:getPosition()
+  if z and not DShadow then
+    z = math.floor(z+0.5) if z > 4 then z = 4 end
+    if isDown then Material.fab(x,y,r,z+1)
+    elseif z > 0 then Material.fab(x,y,r,z) end
+  end
+
+  love.graphics.circle("fill",x,y,r)
+
+  shape.ripple:draw()
+end
+
+function DMaterial:draw_rectangle(shape,obj)
+  local dtype, x, y, w, h = shape:getDType()
+  local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
   
+  if not shape.ripple then --Creating the ripple
+    shape.rippleStarted = false
+    shape.ripple = Material.ripple.box(x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2,0.5)
+    shape:addUpdate(function(dt,shp,obj) shp.ripple:update(dt) end) --Adding a hook to update the ripple.
+  end
+
+  local isDown, dx, dy = shape:isDown()
+  local isHovered = shape:isHovered()
+
+  if isDown and not DExpand then x,y,w,h = x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2 end --Expand Effect
+
+  if isDown then
+    if not shape.rippleStarted then
+      shape.ripple.box.x, shape.ripple.box.y, shape.ripple.box.w, shape.ripple.box.h = x,y,w,h
+      shape.ripple:start(dx,dy, unpack(RColor or {Material.colors.main("blue")}))
+      shape.rippleStarted = true
+    end
+  else
+    if shape.rippleStarted then
+      shape.ripple.box.x, shape.ripple.box.y, shape.ripple.box.w, shape.ripple.box.h = x,y,w,h
+      shape.ripple:fade()
+      shape.rippleStarted = false
+    end
+  end
+
+  if isHovered then
+    love.graphics.setColor(HColor or {Material.colors("grey","100")})
+  else
+    love.graphics.setColor(NColor or {Material.colors.main("white")})
+  end
+
   love.graphics.setLineWidth(1)
-  
+
   local _, _, z = obj:getPosition()
   if z and not DShadow then
     z = math.floor(z+0.5) if z > 4 then z = 4 end
     if isDown then Material.shadow.draw(x,y,w,h,false,z+1)
     elseif z > 0 then Material.shadow.draw(x,y,w,h,false,z) end
   end
-  
+
   love.graphics.rectangle("fill",x,y,w,h)
-  love.graphics.rectangle("line",x,y,w,h)
-  
-  self.sd[shape].rbox:draw()
+
+  shape.ripple:draw()
 end
 
 function DMaterial:draw_text(shape,obj)
