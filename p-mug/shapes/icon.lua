@@ -1,4 +1,4 @@
-local Path = string.sub(..., 1, -string.len(".shapes.text"))
+local Path = string.sub(..., 1, -string.len(".shapes.icon"))
 local Class = require(Path..".third-party.middleclass")
 local SBase = require(Path..".api.shapebase")
 
