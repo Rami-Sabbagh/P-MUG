@@ -49,6 +49,7 @@ function OTextBox:initialize(x,y,w,h,ht,t,otc)
   self.HBody = PMug.Handler():linkShape(self.SBody):addAction(self.UpdateStateAction):addAction(self.OnSelection):addAction(self.OnTextInput)
 
   --Registering--
+  self:registerShape(self.SBody):registerShape(self.SHText):registerShape(self.SText)
   self:addHandler(self.HBody)
   self:addDrawer(self.Drawer)
 

@@ -17,6 +17,7 @@ function OText:initialize(t,x,y,w,h)
   self.Drawer = PMug.Drawer.material():linkShape(self.SText)
 
   --Registering--
+  self:registerShape(self.SText)
   self:addDrawer(self.Drawer)
 
   self:setPosition(x,y)

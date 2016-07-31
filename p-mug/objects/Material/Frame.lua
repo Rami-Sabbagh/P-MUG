@@ -41,7 +41,9 @@ function OFrame:initialize(x,y,w,h,t)
   self.HBody = PMug.Handler():linkShape(self.SBody):addAction(self.SetToTopAction)
 
   --Registering--
-  self:addDrawer(self.DMaterial):addDrawer(self.FrameContainerDrawer):addHandler(self.HClose):addHandler(self.FrameContainer):addHandler(self.HBar):addHandler(self.HBody)
+  self:registerShape(self.SBody):registerShape(self.SBar):registerShape(self.SIcon):registerShape(self.SText):registerShape(self.SCloseBox):registerShape(self.SCloseIcon)
+  self:addDrawer(self.DMaterial):addDrawer(self.FrameContainerDrawer)
+  self:addHandler(self.HClose):addHandler(self.FrameContainer):addHandler(self.HBar):addHandler(self.HBody)
 
   self:setPosition(x,y)
 end
