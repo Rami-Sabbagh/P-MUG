@@ -26,7 +26,7 @@ function OButton:initialize(x,y,w,h,t,oc)
 
   --Registering--
   self:addDrawer(self.Drawer):addHandler(self.Handler)
-  self:registerShape(self.SBody):registerShape(self.SBody)
+  self:registerShape(self.SBody):registerShape(self.SText)
 
   self.Drawer:linkShape(self.SBody):linkShape(self.SText)
 
