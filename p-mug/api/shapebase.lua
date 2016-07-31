@@ -8,6 +8,7 @@ function SBase:initialize()
   self.down = false
   self.visible = true
   self.drawingArgs = {}
+  self.Updates = {} --A list of functions to be called when the shape updates.
 end
 
 function SBase:isDown(isDown,dx,dy)
@@ -36,7 +37,7 @@ function SBase:isVisible()
 end
 
 function SBase:setProperties()
-  
+
 end
 
 function SBase:getProperties()
@@ -62,9 +63,19 @@ function SBase:getDType(...)
   return "none"
 end
 
+--Used to add function to be called when the shape updates, Good for use in drawers. Args: dt: number, shp: the shape, obj: the parent object.
+function SBase:addUpdate(func)
+  self.Updates[func] = func
+
+  return self
+end
+
 --Can be used for making affects.
-function SBase:update(dt)
+function SBase:update(dt,obj)
   if not self.visible then return end
+  for k, v in pairs(self.Updates) do
+    if v then v(dt,self,obj) end
+  end
 end
 
 --Returns the points of the bounding box for the transformed shape.
