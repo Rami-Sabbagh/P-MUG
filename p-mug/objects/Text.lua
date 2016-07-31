@@ -2,14 +2,23 @@ local Path = string.sub(..., 1, -string.len(".objects.Text"))
 local Class = require(Path..".third-party.middleclass")
 local OBase = require(Path..".api.objectbase")
 
+local Material = require(Path..".third-party.material-love")
+
 local OText = Class("object.text",OBase)
 
-function OText:initialize(t,x,y,w,h,design)
+function OText:initialize(t,x,y,w,h)
   OBase.initialize(self)
   local PMug = require(Path)
-  
-  PMug.buildObject(self,design,t,x,y,w,h)
-  
+
+  --Shapes--
+  self.SText = PMug.Shape.textrect(t,0,0,w,h,"center"):setDrawingArgs("display4",{Material.colors.main("blue")})
+
+  --Drawer--
+  self.Drawer = PMug.Drawer.material():linkShape(self.SText)
+
+  --Registering--
+  self:addDrawer(self.Drawer)
+
   self:setPosition(x,y)
 end
 

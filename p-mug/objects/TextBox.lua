@@ -6,21 +6,24 @@ local Material = require(Path..".third-party.material-love")
 
 local OTextBox = Class("object.textbox",OBase)
 
-function OTextBox:initialize(x,y,w,h,design,ht,t,otc)
+local Config = {}
+Config.TextPadding = 5
+
+function OTextBox:initialize(x,y,w,h,ht,t,otc)
   OBase.initialize(self)
   local PMug = require(Path)
-  
+
   --Custom Callbacks--
-  self.otc = otc or function(newtext,obj) end
-  
+  self.otc = otc or function(newtext,self) end
+
   --Actions--
-  self.OnSelection = PMug.Action.onSelection(function(obj)
+  self.OnSelection = PMug.Action.onSelection(function(self)
     if require(Path).isMobile then
       love.keyboard.setTextInput(true)
     end
     return true
   end
-  ,function(obj) return true end)
+  ,function(self) return true end)
   self.OnTextInput = PMug.Action.onTextInput(function(text, newtext)
     self.SText:setProperties(text)
     if text == "" then
@@ -30,9 +33,25 @@ function OTextBox:initialize(x,y,w,h,design,ht,t,otc)
     end
     self.otc(text,self)
   end)
-  
-  PMug.buildObject(self,design,x,y,w,h,ht,t,otc)
-  
+
+  --Actions--
+  self.UpdateStateAction = PMug.Action.updateState()
+
+  --Shapes--
+  self.SBody = PMug.Shape.rectangle(0,0,w,h):setDrawingArgs(true,true,{Material.colors("grey","200")})
+  self.SHText = PMug.Shape.textrect(ht or "",Config.TextPadding,Config.TextPadding,w-Config.TextPadding*2,h-Config.TextPadding*2,"left"):setDrawingArgs("caption",{Material.colors.mono("black","hint-text")})
+  self.SText = PMug.Shape.textrect(t or "",Config.TextPadding,Config.TextPadding,w-Config.TextPadding*2,h-Config.TextPadding*2,"left"):setDrawingArgs("caption",{Material.colors.mono("black","text")})
+
+  --Drawers--
+  self.Drawer = PMug.Drawer.material():linkShape(self.SBody):linkShape(self.SHText):linkShape(self.SText)
+
+  --Handlers--
+  self.HBody = PMug.Handler():linkShape(self.SBody):addAction(self.UpdateStateAction):addAction(self.OnSelection):addAction(self.OnTextInput)
+
+  --Registering--
+  self:addHandler(self.HBody)
+  self:addDrawer(self.Drawer)
+
   self:setPosition(x,y)
 end
 

@@ -7,12 +7,10 @@ local OSlider = Class("object.slider",OBase)
 function OSlider:initialize(x,y,length,design,orientation,min,max)
   OBase.initialize(self)
   local PMug = require(Path)
-  
+
   --Actions--
   self.DragAction = PMug.Action.dragObject()
-  
-  PMug.buildObject(self,design,x,y,length,orientation,min,max)
-  
+
   self:setPosition(x,y)
 end
 

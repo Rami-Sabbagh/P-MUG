@@ -76,31 +76,10 @@ function PMug.indexActions(path)
   end
 end
 
-function PMug.indexDesigns(path)
-  local files = love.filesystem.getDirectoryItems(path)
-  for k,filename in ipairs(files) do
-    if love.filesystem.isDirectory(path..filename) then
-      PMug.indexDesigns(path..filename.."/")
-    else
-      local p, n, e = PMug.splitFilePath(path..filename)
-      n = n:sub(0,-5)
-      if e == "lua" then
-        PMug.Design[n] = require(string.gsub(path..n,"/","%."))
-      end
-    end
-  end
-end
-
 PMug.indexShapes(Path:gsub("%.", "/").."/shapes/")
 PMug.indexDrawers(Path:gsub("%.", "/").."/drawers/")
 PMug.indexObjects(Path:gsub("%.", "/").."/objects/")
 PMug.indexActions(Path:gsub("%.", "/").."/actions/")
-PMug.indexDesigns(Path:gsub("%.", "/").."/designs/")
-
-function PMug.buildObject(obj,designName,...)
-  local Design = PMug.Design[designName] or PMug.Design[DefaultDesign]
-  Design:buildObject(obj,...)
-end
 
 function PMug.newView(name,...)
   local newView = ViewBase(name or "none",...)
@@ -109,15 +88,15 @@ function PMug.newView(name,...)
 end
 
 function PMug.newDrawer()
-  
+
 end
 
 function PMug.newBhavior()
-  
+
 end
 
 function PMug.newShape()
-  
+
 end
 
 function PMug.registerView(view)
@@ -139,7 +118,7 @@ end
 local PMugMeta = {}
 
 PMugMeta.__index = function(t,k)
-  t[k] = function(...) 
+  t[k] = function(...)
     if PMug.activeView and PMug.activeView[k] then
       PMug.activeView[k](PMug.activeView,...)
     end
