@@ -46,16 +46,25 @@ function PMug.indexDrawers(path)
   end
 end
 
-function PMug.indexObjects(path)
+function PMug.indexObjects(path,designName)
   local files = love.filesystem.getDirectoryItems(path)
   for k,filename in ipairs(files) do
     if love.filesystem.isDirectory(path..filename) then
-      PMug.indexShapes(path..filename.."/")
+      if designName then
+        PMug.indexObjects(path..filename.."/",designName)
+      else
+        PMug.Object[filename] = {}
+        PMug.indexObjects(path..filename.."/",filename)
+      end
     else
       local p, n, e = PMug.splitFilePath(path..filename)
       n = n:sub(0,-5)
       if e == "lua" then
-        PMug.Object[n] = require(string.gsub(path..n,"/","%."))
+        if designName then
+          PMug.Object[designName][n] = require(string.gsub(path..n,"/","%."))
+        else
+          PMug.Object[n] = require(string.gsub(path..n,"/","%."))
+        end
       end
     end
   end
