@@ -8,6 +8,9 @@ local Material = require("p-mug.third-party.material-love")
 
 function love.load(args)
   love.graphics.setBackgroundColor(Material.colors.background("light"))
+
+  local Width, Height = love.graphics.getDimensions()
+
   local TView = PMug.newView("test")
   local TBExit = PMug.Object.Material.Button(10,10,100,35,"Quit",function() love.event.quit() end)
   local TButton = PMug.Object.Material.Button(10,55,100,35,"Counter",function()
@@ -27,7 +30,8 @@ function love.load(args)
     TFrame:registerObject(TTBox, 0)
     TView:registerObject(TFrame,4)
   end)
-  TView:registerObject(TBExit,0):registerObject(TButton,0):registerObject(TTBButton,0)
+  local FABButton = PMug.Object.Material.FAB(Width-50,Height-50,"plus","blue-grey",false,function() end)
+  TView:registerObject(TBExit,0):registerObject(TButton,0):registerObject(TTBButton,0):registerObject(FABButton,4)
   PMug.setActiveView("test")
 end
 
