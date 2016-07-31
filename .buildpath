@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<buildpath>
-	<buildpathentry excluding=".git/" kind="src" path=""/>
-	<buildpathentry external="true" kind="lib" path="G:/!Tools/!Lua/love-eclipse-ldt-0.10.1.002.zip"/>
-	<buildpathentry exported="true" kind="con" path="org.eclipse.ldt.ExecutionEnvironmentContainer/lua/5.1"/>
-</buildpath>

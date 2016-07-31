@@ -1,7 +1,4 @@
---e "io.stdout:setvbuf('no'); if os.getenv('DEBUG_MODE') then require 'debugger' ; require 'debugger.plugins.ffi'end"
-io.stdout:setvbuf('no'); --if os.getenv('DEBUG_MODE') then require 'debugger' ; require 'debugger.plugins.ffi'end
-if os.getenv('DEBUG_MODE') then require('debugger')() ; end--require('debugger.plugins.ffi') end
---io.stdout:setvbuf("no")
+io.stdout:setvbuf('no');
 
 local PMug = require("p-mug")
 local OBase = require("p-mug.api.objectbase")
@@ -10,7 +7,6 @@ local HBase = require("p-mug.api.handlerbase")
 local Material = require("p-mug.third-party.material-love")
 
 function love.load(args)
-  --if args[2] and args[2] == "-e" then loadstring(args[3])() end
   love.graphics.setBackgroundColor(Material.colors.background("light"))
   local TView = PMug.newView("test")
   local TBExit = PMug.Object.Button(10,10,100,35,"Material","Quit",function() love.event.quit() end)
