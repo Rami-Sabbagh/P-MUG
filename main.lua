@@ -34,7 +34,7 @@ function love.load(args)
     local TFrame = PMug.Object.Material.Frame(125,125,200,200,"Slider")
     local TText = PMug.Object.Material.Text("0",0,0,200,125)
     local Counter = 0
-    local TSlider = PMug.Object.Material.Slider(10,150,180,"h",0,255)
+    local TSlider = PMug.Object.Material.Slider(20,150,160,"h",0,255)
     TFrame:registerObject(TText, 0)
     TFrame:registerObject(TSlider,0)
     TView:registerObject(TFrame,4)

@@ -77,7 +77,8 @@ function DMaterial:draw_circle(shape,obj)
     elseif z > 0 then Material.fab(x,y,r,z) end
   end
 
-  love.graphics.circle("fill",x,y,r)
+  love.graphics.setLineStyle("smooth")
+  love.graphics.circle("fill",x,y,r,20)
 
   shape.ripple:draw()
 end
@@ -85,7 +86,7 @@ end
 function DMaterial:draw_rectangle(shape,obj)
   local dtype, x, y, w, h = shape:getDType()
   local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
-  
+
   if not shape.ripple then --Creating the ripple
     shape.rippleStarted = false
     shape.ripple = Material.ripple.box(x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2,0.5)
@@ -126,6 +127,7 @@ function DMaterial:draw_rectangle(shape,obj)
     elseif z > 0 then Material.shadow.draw(x,y,w,h,false,z) end
   end
 
+  love.graphics.setLineStyle("smooth")
   love.graphics.rectangle("fill",x,y,w,h)
 
   shape.ripple:draw()
