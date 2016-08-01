@@ -20,6 +20,14 @@ Drawing Args:
       NColor: table: {red,green,blue,alpha} The color of the rectangle when not hovered.
       HColor: table: {red,green,blue,alpha} The color of the rectangle when hovered.
 
+  circle shapes:
+    DShadow, DExpand, RColor, NColor, HColor
+      DShadow: boolean: To disable the shadow or not.
+      DExpand: boolean: To disable the expand affect or not.
+      RColor: table: {red,green,blue,alpha} The color of the ripple.
+      NColor: table: {red,green,blue,alpha} The color of the rectangle when not hovered.
+      HColor: table: {red,green,blue,alpha} The color of the rectangle when hovered.
+
   text shapes:
     FontType, FontColor
       FontType: string: The type of the material robot font to use.
@@ -64,7 +72,7 @@ function DMaterial:draw_circle(shape,obj)
     end
   end
 
-  if isHovered then
+  if isHovered or isDown then
     love.graphics.setColor(HColor or {Material.colors("grey","100")})
   else
     love.graphics.setColor(NColor or {Material.colors.main("white")})
@@ -112,7 +120,7 @@ function DMaterial:draw_rectangle(shape,obj)
     end
   end
 
-  if isHovered then
+  if isHovered or isDown then
     love.graphics.setColor(HColor or {Material.colors("grey","100")})
   else
     love.graphics.setColor(NColor or {Material.colors.main("white")})
@@ -131,6 +139,24 @@ function DMaterial:draw_rectangle(shape,obj)
   love.graphics.rectangle("fill",x,y,w,h)
 
   shape.ripple:draw()
+end
+
+function DMaterial:draw_line(shape,obj)
+  local dtype, x1, y1, x2, y2, width = shape:getDType()
+  local NColor, HColor = shape:getDrawingArgs()
+
+  local isDown, dx, dy = shape:isDown()
+  local isHovered = shape:isHovered()
+
+  if isHovered or isDown then
+    love.graphics.setColor(HColor or {Material.colors("blue-grey","600")})
+  else
+    love.graphics.setColor(NColor or {Material.colors.main("blue-grey")})
+  end
+
+  love.graphics.setLineWidth(width)
+  love.graphics.setLineStyle("smooth")
+  love.graphics.line(x1, y1, x2, y2)
 end
 
 function DMaterial:draw_text(shape,obj)
