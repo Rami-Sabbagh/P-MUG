@@ -42,4 +42,4 @@ Objects are consisted of 4 different classes:
 - Actions: Those are called by handlers, and they do the specific things objects have to do, like calling onClick function, or dragging the objects like in frames.
 - Drawers: Those are responsible for drawing shapes, with custom styling applied.
 
-> [View How button object made documentation](../blob/master/HowButtonMade.md)
+> [View How button object made documentation](../master/HowButtonMade.md)
