@@ -43,6 +43,17 @@ function DMaterial:getName()
   return "Material"
 end
 
+function DMaterial:draw_spinner(shape,obj)
+  local dtype, x, y, r, s, p = shape:getDType()
+  
+  if not shape.spinner then
+    shape.spinner = Material.spinner.new(r,false,s,p)
+    shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end
+  end
+  
+  shape.spinner:draw(x,y,r)
+end
+
 function DMaterial:draw_circle(shape,obj)
   local dtype, x, y, r = shape:getDType()
   local DShadow, DExpand, RColor, NColor, HColor = shape:getDrawingArgs()
