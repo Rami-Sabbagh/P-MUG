@@ -44,10 +44,10 @@ function DMaterial:getName()
 end
 
 function DMaterial:draw_spinner(shape,obj)
-  local dtype, x, y, r, s, p = shape:getDType()
+  local dtype, x, y, r, m, s, p = shape:getDType()
 
   if not shape.spinner then
-    shape.spinner = Material.spinner.new(r,false,s,p)
+    shape.spinner = Material.spinner.new(r,m,s,p)
     shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end)
   end
 

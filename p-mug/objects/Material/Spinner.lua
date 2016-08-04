@@ -4,12 +4,12 @@ local OBase = require(Path..".api.objectbase")
 
 local OSpinner = Class("object.spinner",OBase)
 
-function OSpinner:initialize(x,y,radius,speed,precision)
+function OSpinner:initialize(x,y,radius,width,speed,precision)
   OBase.initialize(self) local PMug = require(Path)
-  self.r, self.s, self.p = radius or 28, speed or 1, precision or 100
+  self.r, self.w, self.s, self.p = radius or 28, width or 3, speed or 1, precision or 100
 
   --Shapes--
-  self.SSpinner = PMug.Shape.spinner(0, 0, self.r, self.s, self.p)
+  self.SSpinner = PMug.Shape.spinner(0, 0, self.r, self.w, self.s, self.p)
 
   --Drawers--
   self.Drawer = PMug.Drawer.material()
