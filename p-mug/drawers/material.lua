@@ -45,12 +45,12 @@ end
 
 function DMaterial:draw_spinner(shape,obj)
   local dtype, x, y, r, s, p = shape:getDType()
-  
+
   if not shape.spinner then
     shape.spinner = Material.spinner.new(r,false,s,p)
-    shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end
+    shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end)
   end
-  
+
   shape.spinner:draw(x,y,r)
 end
 
