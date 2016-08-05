@@ -32,6 +32,10 @@ Drawing Args:
     FontType, FontColor
       FontType: string: The type of the material robot font to use.
       FontColor: table: {red,green,blue,alpha} The color of the text.
+    
+  spinner shapes:
+    SpinnerColor
+      SpinnerColor: table: {red,green,blue,alpha} The color of the spinner.
 ]]
 
 function DMaterial:initialize()
@@ -41,6 +45,20 @@ end
 
 function DMaterial:getName()
   return "Material"
+end
+
+function DMaterial:draw_spinner(shape,obj)
+  local dtype, x, y, r, m, s, p = shape:getDType()
+  local Color = shape:getDrawingArgs()
+
+  if not shape.spinner then
+    shape.spinner = Material.spinner.new(r,m,s,p)
+    shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end)
+  end
+  
+  love.graphics.setColor(Color or {Material.colors.main("teal")})
+
+  shape.spinner:draw(x,y,r)
 end
 
 function DMaterial:draw_circle(shape,obj)
