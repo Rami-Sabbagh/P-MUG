@@ -28,6 +28,7 @@ For android extract the repository and copy all the files in the main.lua folder
 - ~~Create slider object~~ Done 1/8/2016.
 - Create progress bar object
 - Build smart sizing & positions system
+- Write the customization functions for the objects
 - Document the code
 - Pre-Release the library
 
