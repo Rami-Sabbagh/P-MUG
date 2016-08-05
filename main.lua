@@ -67,8 +67,8 @@ function love.load(args)
     TView:registerObject(TFrame,4)
   end)
 
-  local FABButton = PMug.Object.Material.FAB(Width-50,Height-50,"plus","blue-grey",false,function()
-
+  local FABButton = PMug.Object.Material.FAB(Width-50,Height-50,"github-circle","blue-grey",false,function()
+    love.system.openURL("http://github.com/RamiLego4Game/p-mug")
   end)
   TView:registerObject(TBExit,0):registerObject(TCButton,0):registerObject(TTBButton,0):registerObject(TSLButton,0):registerObject(TSPButton,0):registerObject(FABButton,4)
   PMug.setActiveView("test")
