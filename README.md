@@ -21,6 +21,7 @@ For android extract the repository and copy all the files in the main.lua folder
 - TextBox
 - FAB Button
 - Slider
+- Spinner
 
 ## TODO List for first Pre-Release:
 - ~~Create spinner object~~ Done 4/8/2016.
