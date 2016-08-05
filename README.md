@@ -22,16 +22,18 @@ For android extract the repository and copy all the files in the main.lua folder
 - FAB Button
 - Slider
 
-## TODO List:
-- Create spinner object
+## TODO List for first Pre-Release:
+- ~~Create spinner object~~ Done 4/8/2016.
 - ~~Create slider object~~ Done 1/8/2016.
-- Create checkbox object
-- Upgrade ContainerBase to support lists
-- Create list object
 - Create progress bar object
 - Build smart sizing & positions system
 - Document the code
 - Pre-Release the library
+
+### Later TODO List:
+- Create checkbox object
+- Upgrade ContainerBase to support lists
+- Create list object
 
 ## How objects are constructed in P-Mug:
 Objects in PMug are made in a complex way that makes it easier to handler touch&mouse event.
