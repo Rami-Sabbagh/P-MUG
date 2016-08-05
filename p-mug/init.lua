@@ -1,8 +1,7 @@
 --P-MUG By: RamiLego4Game--
 local PMug, Path = {activeView=false,Views={},Shape={},Drawer={},Object={},Action={},Design={}}, ...
 
-local Material = require(Path..".third-party.material-love")
-PMug.Material = {}
+PMug.Material = require(Path..".third-party.material-love")
 
 love.keyboard.setKeyRepeat(true)
 
