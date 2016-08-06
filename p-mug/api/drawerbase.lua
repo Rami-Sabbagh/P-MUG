@@ -17,10 +17,16 @@ function DBase:linkShape(shp)
   return self, #self.LShapes
 end
 
-function DBase:draw(obj)
+function DBase:draw(obj,drawStencil)
   for k,S in ipairs(self.LShapes) do
     local T = S:getDType()
-    if self["draw_"..T] and S:isVisible() then self["draw_"..T](self,S,obj) end
+    if S:isVisible() then
+      if drawStencil then
+        if self["stencil_"..T] then self["stencil_"..T](self,S,obj) end
+      else
+        if self["draw_"..T] then self["draw_"..T](self,S,obj) end
+      end
+    end
   end
 end
 

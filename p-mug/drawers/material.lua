@@ -32,7 +32,7 @@ Drawing Args:
     FontType, FontColor
       FontType: string: The type of the material robot font to use.
       FontColor: table: {red,green,blue,alpha} The color of the text.
-    
+
   spinner shapes:
     SpinnerColor
       SpinnerColor: table: {red,green,blue,alpha} The color of the spinner.
@@ -47,6 +47,17 @@ function DMaterial:getName()
   return "Material"
 end
 
+function DMaterial:stencil_spinner(shape,obj)
+  local dtype, x, y, r, m, s, p = shape:getDType()
+
+  if not shape.spinner then
+    shape.spinner = Material.spinner.new(r,m,s,p)
+    shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end)
+  end
+
+  shape.spinner:draw(x,y,r)
+end
+
 function DMaterial:draw_spinner(shape,obj)
   local dtype, x, y, r, m, s, p = shape:getDType()
   local Color = shape:getDrawingArgs()
@@ -55,10 +66,22 @@ function DMaterial:draw_spinner(shape,obj)
     shape.spinner = Material.spinner.new(r,m,s,p)
     shape:addUpdate(function(dt,shp,obj) shp.spinner:update(dt) end)
   end
-  
+
   love.graphics.setColor(Color or {Material.colors.main("teal")})
 
   shape.spinner:draw(x,y,r)
+end
+
+function DMaterial:stencil_Circle(shape,obj)
+  local dtype, x, y, r = shape:getDType()
+  local _, DExpand = shape:getDrawingArgs()
+
+  local isDown, dx, dy = shape:isDown()
+
+  if isDown and not DExpand then r = r+Config.circleExpand end --Expand Effect
+
+  love.graphics.setLineStyle("smooth")
+  love.graphics.circle("fill",x,y,r,20)
 end
 
 function DMaterial:draw_circle(shape,obj)
@@ -107,6 +130,19 @@ function DMaterial:draw_circle(shape,obj)
   love.graphics.circle("fill",x,y,r,20)
 
   shape.ripple:draw()
+end
+
+function DMaterial:stencil_rectangle(shape,obj)
+  local dtype, x, y, w, h = shape:getDType()
+  local _, DExpand = shape:getDrawingArgs()
+
+  local isDown, dx, dy = shape:isDown()
+
+  if isDown and not DExpand then x,y,w,h = x-Config.rectangleExpand,y-Config.rectangleExpand,w+Config.rectangleExpand*2,h+Config.rectangleExpand*2 end --Expand Effect
+
+  love.graphics.setLineWidth(1)
+  love.graphics.setLineStyle("smooth")
+  love.graphics.rectangle("fill",x,y,w,h)
 end
 
 function DMaterial:draw_rectangle(shape,obj)
@@ -159,6 +195,14 @@ function DMaterial:draw_rectangle(shape,obj)
   shape.ripple:draw()
 end
 
+function DMaterial:stencil_line(shape,obj)
+  local dtype, x1, y1, x2, y2, width = shape:getDType()
+
+  love.graphics.setLineWidth(width)
+  love.graphics.setLineStyle("smooth")
+  love.graphics.line(x1, y1, x2, y2)
+end
+
 function DMaterial:draw_line(shape,obj)
   local dtype, x1, y1, x2, y2, width = shape:getDType()
   local NColor, HColor = shape:getDrawingArgs()
@@ -177,6 +221,14 @@ function DMaterial:draw_line(shape,obj)
   love.graphics.line(x1, y1, x2, y2)
 end
 
+function DMaterial:stencil_text(shape,obj)
+  local fonttype, _ = shape:getDrawingArgs()
+  local dtype, t, x, y, l, a = shape:getDType(Material.roboto[fonttype or "button"])
+  love.graphics.setLineWidth(1)
+  love.graphics.setFont(Material.roboto[fonttype or "button"])
+  love.graphics.printf(t, x, y, l, a)
+end
+
 function DMaterial:draw_text(shape,obj)
   local fonttype, fontcolor = shape:getDrawingArgs()
   local dtype, t, x, y, l, a = shape:getDType(Material.roboto[fonttype or "button"])
@@ -184,6 +236,11 @@ function DMaterial:draw_text(shape,obj)
   love.graphics.setLineWidth(1)
   love.graphics.setFont(Material.roboto[fonttype or "button"])
   love.graphics.printf(t, x, y, l, a)
+end
+
+function DMaterial:stencil_icon(shape,obj)
+  local dtype, icon, x,y, rotation, _, active, invert = shape:getDType()
+  Material.icons.draw(icon, x,y, rotation, {0,0,0,255}, active, invert)
 end
 
 function DMaterial:draw_icon(shape,obj)
