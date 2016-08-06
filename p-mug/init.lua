@@ -2,6 +2,7 @@
 local PMug, Path = {activeView=false,Views={},Shape={},Drawer={},Object={},Action={},Design={}}, ...
 
 PMug.Material = require(Path..".third-party.material-love")
+PMug.Stencil = require(Path..".third-party.smartStencil")
 
 love.keyboard.setKeyRepeat(true)
 
